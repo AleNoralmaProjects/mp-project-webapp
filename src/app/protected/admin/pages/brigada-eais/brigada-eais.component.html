@@ -1,0 +1,368 @@
+<div class="flex flex-col w-full h-screen">
+  <div class="custom-primary-label text-center">
+    <span class="hover:scale-105"> GESTIONAR BRIGADA EAIS </span>
+  </div>
+  <div class="flex flex-col justify-between mt-6 mx-3 gap-4 sm:flex-row">
+    <!-- BUTTON AGREGAR -->
+    <div class="flex flex-row text-green-600">
+      <button
+        (click)="toggleOpenModal()"
+        type="button"
+        class="custom-primary-button transition hover:shadow-xl"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke-width="1.5"
+          stroke="currentColor"
+          class="w-6 h-6 mr-2"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            d="M12 9v6m3-3H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z"
+          />
+        </svg>
+        Agregar
+      </button>
+    </div>
+
+    <!-- BUTTON SEARCH -->
+    <div class="hidden sm:block sm:relative">
+      <input
+        [(ngModel)]="searchBrigadeEaisString"
+        type="text"
+        placeholder="Buscar"
+        class="custom-search-button transition hover:shadow-xl group"
+      />
+      <span class="absolute inset-y-0 grid w-10 place-content-center end-0">
+        <button type="button" class="hover:text-blue-600 focus:text-blue-600">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke-width="1.5"
+            stroke="currentColor"
+            class="h-4 w-4 group-hover:text-blue-600 group-focus:text-blue-600"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z"
+            />
+          </svg>
+        </button>
+      </span>
+    </div>
+
+    <div class="block relative sm:hidden">
+      <input
+        [(ngModel)]="searchBrigadeEaisString"
+        type="text"
+        placeholder="Buscar"
+        class="custom-search-button transition hover:shadow-xl group pl-10"
+      />
+      <span class="absolute inset-y-0 grid w-10 place-content-center">
+        <button type="button" class="hover:text-blue-600 focus:text-blue-600">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke-width="1.5"
+            stroke="currentColor"
+            class="h-4 w-4 group-hover:text-blue-600 group-focus:text-blue-600"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z"
+            />
+          </svg>
+        </button>
+      </span>
+    </div>
+  </div>
+
+  <!--  MODAL DEL BOTON AGREGAR -->
+  <div class="flex flex-col items-center justify-between sm:flex-row">
+    <!-- Seccion modal -->
+    <section *ngIf="open_create_brigadeEais">
+      <div
+        class="fixed inset-0 z-50 flex items-center justify-center overflow-y-auto overflow-x-hidden outline-none focus:outline-none"
+      >
+        <div
+          class="relative mx-auto my-3 w-max max-w-[16rem] sm:my-6 sm:min-w-[20rem] sm:max-w-md md:max-w-xl"
+        >
+          <!--content-->
+          <div
+            class="border-gray-200 border-opacity-70 relative flex w-full min-w-[14rem] flex-col overflow-hidden rounded-md border border-solid outline-none focus:outline-none"
+          >
+            <form
+              [formGroup]="createFormBrigade"
+              (ngSubmit)="addBrigadeEais()"
+              autocomplete="off"
+            >
+              <!--header-->
+              <div
+                class="border-gray-200 bg-gray-50 flex items-center justify-between border-b border-solid px-4 py-4"
+              >
+                <div class="tracking-wide">
+                  <h3 class="text-base font-medium">
+                    Agregue una Brigada EAIS
+                  </h3>
+                  <small
+                    >Campos con <strong class="text-red-500">*</strong> son
+                    obligatorios.
+                  </small>
+                </div>
+                <!-- <button
+                  class="text-red-600"
+                  (click)="toogleCreateInfoEaisModalClose()"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    class="icon icon-tabler icon-tabler-x"
+                    width="20"
+                    height="20"
+                    viewBox="0 0 24 24"
+                    stroke-width="1.5"
+                    stroke="currentColor"
+                    fill="none"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  >
+                    <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                    <path d="M18 6l-12 12"></path>
+                    <path d="M6 6l12 12"></path>
+                  </svg>
+                </button> -->
+              </div>
+
+              <!--body-->
+              <div
+                class="relative max-h-[440px] flex-auto overflow-y-auto bg-gray-50 px-4 py-4"
+              >
+                <div class="grid grid-cols-1 gap-y-5 gap-x-5 sm:grid-cols-2">
+                  <div>
+                    <label
+                      for="codEais"
+                      class="block font-normal text-sm text-gray-800"
+                    >
+                      Código EAIS<strong class="text-red-500"> *</strong>
+                    </label>
+                    <select
+                      id="codEais"
+                      formControlName="eais"
+                      class="custom-inputs-modalAdd focus:shadow-md text-sm"
+                    >
+                      <option value="" hidden selected disabled>
+                        -- Seleccione --
+                      </option>
+
+                      <option
+                        *ngFor="let infoEais of list_infoEais"
+                        [value]="infoEais.id_eais"
+                      >
+                        {{ infoEais.cod_eais }}
+                      </option>
+                    </select>
+                  </div>
+                  <div>
+                    <label
+                      for="professional"
+                      class="block font-normal text-sm text-gray-800"
+                    >
+                      Profesional<strong class="text-red-500"> *</strong>
+                    </label>
+                    <select
+                      id="professional"
+                      formControlName="profesional"
+                      class="custom-inputs-modalAdd focus:shadow-md text-sm"
+                    >
+                      <option value="" hidden selected disabled>
+                        -- Seleccione --
+                      </option>
+                      <option
+                        *ngFor="let profesional of list_professionals"
+                        [value]="profesional.id_profesional"
+                      >
+                        {{ profesional.nombres + " " + profesional.apellidos }}
+                      </option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+
+              <!--footer-->
+              <div
+                class="border-gray-200 bg-gray-50 flex items-center border-t border-solid px-4 pt-3 pb-2 justify-end pr-2 gap-x-2"
+              >
+                <button
+                  (click)="toggleCreateEAISModalClose()"
+                  type="button"
+                  class="text-red-700 hover:text-white border border-red-700 hover:bg-red-700 focus:ring-2 focus:outline-none focus:ring-red-300 font-medium rounded-md text-base px-5 py-1.5 text-center mr-2 mb-2 hover:shadow-sm disabled:hover:shadow-none"
+                >
+                  Cerrar
+                </button>
+                <button
+                  type="submit"
+                  [disabled]="createFormBrigade.invalid"
+                  class="text-green-700 hover:text-white border border-green-700 hover:bg-green-800 focus:ring-2 focus:outline-none focus:ring-green-300 font-medium rounded-md text-base px-5 py-1.5 text-center mr-2 mb-2 hover:shadow-sm disabled:hover:shadow-none"
+                >
+                  Guardar
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+      <div
+        *ngIf="open_create_brigadeEais"
+        class="fixed inset-0 z-40 bg-slate-600 opacity-60"
+      ></div>
+    </section>
+  </div>
+
+  <!--  SECCION MOSTRAR INFO EAIS  -->
+  <div class="px-3 w-full mt-1">
+    <div>
+      <div class="my-5 overflow-auto">
+        <table
+          class="w-full whitespace-nowrap border-separate border-spacing-y-1.5"
+        >
+          <thead class="font-semibold uppercase tracking-wide">
+            <tr
+              tabindex="0"
+              class="bg-azulceleste justify-between shadow-inner"
+            >
+              <!-- <td class="rounded-l-lg border-s custom-table-thead-td">
+                Id Brigada EAIS
+              </td> -->
+              <td class="rounded-l-lg border-s custom-table-thead-td">Profesional</td>
+              <td class="custom-table-thead-td">EAIS</td>
+              <td class="custom-table-thead-td">Fecha Creación</td>
+              <td class="custom-table-thead-td">Fecha Actualización</td>
+              <td class="custom-table-thead-td">Estado</td>
+              <td class="rounded-r-lg border-e custom-table-thead-td"></td>
+            </tr>
+          </thead>
+
+          <tbody>
+            <tr
+              *ngFor="
+                let brigadeEais of all_brigadeEais
+                  | filterBrigadeeais : searchBrigadeEaisString
+                  | paginate : config
+              "
+              tabindex="0"
+              class="focus:outline-none justify-between rounded bg-white hover:bg-gray-200"
+            >
+              <!-- <td class="rounded-l-lg border-s custom-table-tbody-td">
+                {{ brigadeEais.id_brigadaeais }}
+              </td> -->
+              <td class="rounded-l-lg border-s custom-table-tbody-td">
+                {{
+                  brigadeEais.profesional.apellidos +
+                    " " +
+                    brigadeEais.profesional.nombres
+                }}
+              </td>
+              <td class="custom-table-tbody-td">
+                {{ brigadeEais.eais.cod_eais }}
+              </td>
+              <td class="custom-table-tbody-td">
+                {{
+                  brigadeEais.fecha_creacion | date : "dd/MM/yyyy hh:mm:ss a"
+                }}
+              </td>
+              <td class="custom-table-tbody-td">
+                {{
+                  brigadeEais.fecha_actualizacion
+                    | date : "dd/MM/yyyy hh:mm:ss a"
+                }}
+              </td>
+              <td class="custom-table-tbody-td">
+                {{ brigadeEais.state | statusManagement }}
+              </td>
+
+              <td class="rounded-r-lg border-e custom-table-tbody-td">
+                <div *ngIf="brigadeEais.state">
+                  <label
+                    class="relative h-6 w-11 cursor-pointer [-webkit-tap-highlight-color:_transparent] flex items-center justify-center"
+                  >
+                    <input
+                      type="checkbox"
+                      name="user_state"
+                      [checked]="brigadeEais.state"
+                      (change)="
+                        updateBrigadeEaisData(
+                          brigadeEais.id_brigadaeais,
+                          brigadeEais.state
+                        )
+                      "
+                      class="peer sr-only [&:checked_+_span_svg[data-checked-icon]]:block [&:checked_+_span_svg[data-unchecked-icon]]:hidden"
+                    />
+                    <span
+                      class="absolute inset-y-0 start-0 z-10 m-1 inline-flex h-4 w-4 items-center justify-center rounded-full bg-white text-gray-400 transition-all peer-checked:start-6 peer-checked:text-green-600"
+                    >
+                      <svg
+                        data-unchecked-icon
+                        xmlns="http://www.w3.org/2000/svg"
+                        class="h-4 w-4"
+                        viewBox="0 0 20 20"
+                        fill="currentColor"
+                      >
+                        <path
+                          fill-rule="evenodd"
+                          d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                          clip-rule="evenodd"
+                        />
+                      </svg>
+                      <svg
+                        data-checked-icon
+                        xmlns="http://www.w3.org/2000/svg"
+                        class="hidden h-4 w-4"
+                        viewBox="0 0 20 20"
+                        fill="currentColor"
+                      >
+                        <path
+                          fill-rule="evenodd"
+                          d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                          clip-rule="evenodd"
+                        />
+                      </svg>
+                    </span>
+                    <span
+                      class="absolute inset-0 rounded-full bg-gray-300 transition peer-checked:bg-green-500"
+                    ></span>
+                  </label>
+                </div>
+                <div *ngIf="!brigadeEais.state">.......</div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <!-- ESTILOS DE PAGINACION -->
+        <div class="text-center mt-3">
+          <pagination-controls
+            [id]="config.id!"
+            class="my-pagination"
+            [maxSize]="maxSize"
+            [directionLinks]="directionLinks"
+            [autoHide]="autoHide"
+            [responsive]="responsive"
+            [previousLabel]="labels.previousLabel"
+            [nextLabel]="labels.nextLabel"
+            [screenReaderPaginationLabel]="labels.screenReaderPaginationLabel"
+            [screenReaderPageLabel]="labels.screenReaderPageLabel"
+            [screenReaderCurrentLabel]="labels.screenReaderCurrentLabel"
+            (pageChange)="onPageChange($event)"
+            (pageBoundsCorrection)="onPageBoundsCorrection($event)"
+          >
+          </pagination-controls>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

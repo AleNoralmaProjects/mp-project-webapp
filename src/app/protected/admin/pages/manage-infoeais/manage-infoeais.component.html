@@ -1,0 +1,360 @@
+<div class="flex flex-col w-full h-screen">
+  <div class="custom-primary-label text-center">
+    <span class="hover:scale-105"> GESTIONAR INFORMACIÓN EAIS </span>
+  </div>
+  <div class="flex flex-col justify-between mt-6 mx-3 gap-4 sm:flex-row">
+    <!-- BUTTON AGREGAR -->
+    <div class="flex flex-row text-green-600">
+      <button
+        (click)="toggleOpenModalInfoEais()"
+        type="button"
+        class="custom-primary-button transition hover:shadow-xl"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke-width="1.5"
+          stroke="currentColor"
+          class="w-6 h-6 mr-2"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            d="M12 9v6m3-3H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z"
+          />
+        </svg>
+        Agregar
+      </button>
+    </div>
+
+    <!-- BUTTON SEARCH -->
+    <!-- <div class="hidden sm:block sm:relative">
+      <input
+        type="text"
+        placeholder="Buscar"
+        class="custom-search-button transition hover:shadow-xl group"
+      />
+      <span class="absolute inset-y-0 grid w-10 place-content-center end-0">
+        <button type="button" class="hover:text-blue-600 focus:text-blue-600">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke-width="1.5"
+            stroke="currentColor"
+            class="h-4 w-4 group-hover:text-blue-600 group-focus:text-blue-600"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z"
+            />
+          </svg>
+        </button>
+      </span>
+    </div>
+
+    <div class="block relative sm:hidden">
+      <input
+        type="text"
+        placeholder="Buscar"
+        class="custom-search-button transition hover:shadow-xl group pl-10"
+      />
+      <span class="absolute inset-y-0 grid w-10 place-content-center">
+        <button type="button" class="hover:text-blue-600 focus:text-blue-600">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke-width="1.5"
+            stroke="currentColor"
+            class="h-4 w-4 group-hover:text-blue-600 group-focus:text-blue-600"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z"
+            />
+          </svg>
+        </button>
+      </span>
+    </div> -->
+  </div>
+
+  <!--  MODAL DEL BOTON AGREGAR/ -->
+  <div class="flex flex-col items-center justify-between sm:flex-row">
+    <!-- Seccion modal -->
+    <section *ngIf="open_create_infoeais">
+      <div
+        class="fixed inset-0 z-50 flex items-center justify-center overflow-y-auto overflow-x-hidden outline-none focus:outline-none"
+      >
+        <div
+          class="relative mx-auto my-3 w-max max-w-[16rem] sm:my-6 sm:min-w-[20rem] sm:max-w-md md:max-w-xl"
+        >
+          <!--content-->
+          <div
+            class="border-gray-200 border-opacity-70 relative flex w-full min-w-[14rem] flex-col overflow-hidden rounded-md border border-solid outline-none focus:outline-none"
+          >
+            <form
+              [formGroup]="createFormInfoEais"
+              (ngSubmit)="addInfoEais()"
+              autocomplete="off"
+            >
+              <!--header-->
+              <div
+                class="border-gray-200 bg-gray-50 flex items-center justify-between border-b border-solid px-4 py-4"
+              >
+                <div class="tracking-wide">
+                  <h3 class="text-base font-medium">
+                    Agregue la Información del EAIS
+                  </h3>
+                  <small
+                    >Campos con <strong class="text-red-500"> *</strong> son
+                    obligatorios. No se permite espacios en blanco.
+                  </small>
+                </div>
+                <!-- <button
+                  class="text-red-600"
+                  (click)="toogleCreateInfoEaisModalClose()"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    class="icon icon-tabler icon-tabler-x"
+                    width="20"
+                    height="20"
+                    viewBox="0 0 24 24"
+                    stroke-width="1.5"
+                    stroke="currentColor"
+                    fill="none"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  >
+                    <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                    <path d="M18 6l-12 12"></path>
+                    <path d="M6 6l12 12"></path>
+                  </svg>
+                </button> -->
+              </div>
+
+              <!--body-->
+              <div
+                class="relative max-h-[440px] flex-auto overflow-y-auto bg-gray-50 px-4 py-4"
+              >
+                <!-- <div
+                  class="flex flex-col gap-3 w-full relative min-h-[5rem] overflow-x-auto items-center justify-center sm:flex-row md:flex-row"
+                >
+                  <div>
+                    <select formControlName="eais" id="codEAIS">
+                      <option value="" hidden selected>-- Seleccione --</option>
+                    </select>
+                    <label
+                      for="codEAIS"
+                      class="relative block overflow-hidden rounded-md border border-gray-200 px-3 pt-3 h-full shadow-sm focus-within:border-blue-600 focus-within:ring-0 focus-within:ring-blue-600"
+                    >
+                      <input
+                        type="codEAIS"
+                        id="codEAIS"
+                        placeholder="codEAIS"
+                        class="peer h-8 w-full border-none bg-transparent p-0 placeholder-transparent focus:border-transparent focus:outline-none focus:ring-0 sm:text-sm"
+                      />
+                      <span
+                        class="absolute start-3 top-3 -translate-y-1/2 text-base text-gray-700 transition-all peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-sm peer-focus:top-3 peer-focus:text-xs"
+                      >
+                        Código EAIS <strong class="text-red-500">*</strong>
+                      </span>
+                    </label>
+                  </div>
+                  <div>
+                    <label
+                      for="UsercodEAIS"
+                      class="relative block overflow-hidden rounded-md border border-gray-200 px-3 pt-3 h-full shadow-sm focus-within:border-blue-600 focus-within:ring-0 focus-within:ring-blue-600"
+                    >
+                      <input
+                        type="codEAIS"
+                        id="UsercodEAIS"
+                        placeholder="codEAIS"
+                        class="peer h-8 w-full border-none bg-transparent p-0 placeholder-transparent focus:border-transparent focus:outline-none focus:ring-0 sm:text-sm"
+                      />
+                      <span
+                        class="absolute start-3 top-3 -translate-y-1/2 text-base text-gray-700 transition-all peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-sm peer-focus:top-3 peer-focus:text-xs"
+                      >
+                        Profesional <strong class="text-red-500">*</strong>
+                      </span>
+                    </label>
+                  </div>
+                </div> -->
+                <div class="grid grid-cols-1 gap-y-5 gap-x-5 sm:grid-cols-2">
+                  <div>
+                    <label
+                      for="provincia"
+                      class="block font-normal text-sm text-gray-800"
+                    >
+                      Provincia<strong class="text-red-500"> *</strong>
+                    </label>
+                    <input
+                      type="text"
+                      id="provincia"
+                      formControlName="provincia"
+                      class="custom-inputs-modalAdd focus:shadow-md"
+                    />
+                  </div>
+                  <div>
+                    <label
+                      for="canton"
+                      class="block font-normal text-sm text-gray-800"
+                    >
+                      Cantón<strong class="text-red-500"> *</strong>
+                    </label>
+                    <input
+                      type="text"
+                      id="canton"
+                      formControlName="canton"
+                      class="custom-inputs-modalAdd focus:shadow-md"
+                    />
+                  </div>
+                  <div>
+                    <label
+                      for="parroquia"
+                      class="block font-normal text-sm text-gray-800"
+                    >
+                      Parroquia<strong class="text-red-500"> *</strong>
+                    </label>
+                    <input
+                      type="text"
+                      id="parroquia"
+                      formControlName="parroquia"
+                      class="custom-inputs-modalAdd focus:shadow-md"
+                    />
+                  </div>
+                  <div>
+                    <label
+                      for="distrito"
+                      class="block font-normal text-sm text-gray-800"
+                    >
+                      Distrito<strong class="text-red-500"> *</strong>
+                    </label>
+                    <input
+                      type="text"
+                      id="distrito"
+                      formControlName="distrito"
+                      class="custom-inputs-modalAdd focus:shadow-md"
+                    />
+                  </div>
+                  <div>
+                    <label
+                      for="zona"
+                      class="block font-normal text-sm text-gray-800"
+                    >
+                      Zona<strong class="text-red-500"> *</strong>
+                    </label>
+                    <input
+                      type="text"
+                      id="zona"
+                      formControlName="zona"
+                      class="custom-inputs-modalAdd focus:shadow-md"
+                    />
+                  </div>
+                  <div>
+                    <label
+                      for="cod_eais"
+                      class="block font-normal text-sm text-gray-800"
+                    >
+                      Código EAIS<strong class="text-red-500"> *</strong>
+                    </label>
+                    <input
+                      type="text"
+                      id="cod_eais"
+                      formControlName="cod_eais"
+                      class="custom-inputs-modalAdd focus:shadow-md"
+                    />
+                  </div>
+                </div>
+              </div>
+
+              <!--footer-->
+              <div
+                class="border-gray-200 bg-gray-50 flex items-center border-t border-solid px-4 pt-3 pb-2 justify-end pr-2 gap-x-2"
+              >
+                <button
+                  (click)="toogleCreateInfoEaisModalClose()"
+                  type="button"
+                  class="text-red-700 hover:text-white border border-red-700 hover:bg-red-700 focus:ring-2 focus:outline-none focus:ring-red-300 font-medium rounded-md text-base px-5 py-1.5 text-center mr-2 mb-2 hover:shadow-sm disabled:hover:shadow-none"
+                >
+                  Cerrar
+                </button>
+                <button
+                  type="submit"
+                  [disabled]="createFormInfoEais.invalid"
+                  class="text-green-700 hover:text-white border border-green-700 hover:bg-green-800 focus:ring-2 focus:outline-none focus:ring-green-300 font-medium rounded-md text-base px-5 py-1.5 text-center mr-2 mb-2 hover:shadow-sm disabled:hover:shadow-none"
+                >
+                  Guardar
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+      <div
+        *ngIf="open_create_infoeais"
+        class="fixed inset-0 z-40 bg-slate-600 opacity-60"
+      ></div>
+    </section>
+  </div>
+
+  <!--  SECCION MOSTRAR INFO EAIS  -->
+  <div class="px-3 w-full mt-1">
+    <div>
+      <div class="my-5 overflow-auto">
+        <table
+          class="w-full whitespace-nowrap border-separate border-spacing-y-1.5"
+        >
+          <thead class="font-semibold uppercase tracking-wide">
+            <tr
+              tabindex="0"
+              class="bg-azulceleste justify-between shadow-inner"
+            >
+              <td class="rounded-l-lg border-s custom-table-thead-td">
+                Código EAIS
+              </td>
+              <td class="custom-table-thead-td">Provincia</td>
+              <td class="custom-table-thead-td">Cantón</td>
+              <td class="custom-table-thead-td">Parroquia</td>
+              <td class="custom-table-thead-td">Distrito</td>
+              <td class="rounded-r-lg border-e custom-table-thead-td">Zona</td>
+              <!-- <td class="rounded-r-lg border-e custom-table-thead-td">E</td> -->
+            </tr>
+          </thead>
+
+          <tbody>
+            <tr
+              *ngFor="let infoEais of all_infoEais"
+              tabindex="0"
+              class="focus:outline-none justify-between rounded bg-white hover:bg-gray-200"
+            >
+              <td class="rounded-l-lg border-s custom-table-tbody-td">
+                {{ infoEais.cod_eais }}
+              </td>
+              <td class="custom-table-tbody-td">
+                {{ infoEais.provincia }}
+              </td>
+              <td class="custom-table-tbody-td">
+                {{ infoEais.canton }}
+              </td>
+              <td class="custom-table-tbody-td">
+                {{ infoEais.parroquia }}
+              </td>
+              <td class="custom-table-tbody-td">
+                {{ infoEais.distrito }}
+              </td>
+              <td class="rounded-r-lg border-e custom-table-tbody-td">
+                {{ infoEais.zona }}
+              </td>
+              <!-- <td class="rounded-r-lg border-e custom-table-tbody-td">E</td> -->
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

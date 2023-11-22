@@ -1,0 +1,94 @@
+<section class="flex flex-col h-screen bg-gray-100">
+  <div class="flex flex-col w-full h-full">
+    <div
+      class="h-full w-full bg-[url('assets/images/WorldMap.svg')] bg-cover bg-no-repeat bg-center"
+    >
+      <div class="flex flex-col items-center justify-center h-full w-full">
+        <div
+          class="flex flex-col gap-3 p-5 bg-white rounded-md shadow-2xl w-64 md:w-80"
+        >
+          <!--  <div class="flex flex-row gap-2 justify-center items-end">
+            <div class="">
+              <img
+                src="../../../assets/images/Ecuadora.svg"
+                alt=""
+                srcset=""
+                class="w-8 h-8"
+              />
+            </div>
+
+            <div class="flex items-end h-8">
+              <span
+                class="text-xl font-bold text-center tracking-wide md:text-[23px] "
+                >MAPA PARLANTE</span
+              >
+            </div>
+          </div> -->
+          <div class="flex flex-row gap-2 items-end justify-center">
+            <img
+              src="../../../assets/images/EcuadorLogo.svg"
+              alt=""
+              class="w-12"
+            />
+            <span class="inset-0 font-bold tracking-wide text-lg"
+              >MAPA PARLANTE</span
+            >
+          </div>
+
+          <span class="text-lg font-semibold text-center tracking-wide"
+            >Por favor, ingrese sus credenciales.</span
+          >
+          <form
+            role="form"
+            autocomplete="off"
+            [formGroup]="myLoginForm"
+            (ngSubmit)="loginValidation()"
+          >
+            <div class="flex flex-col gap-5">
+              <div class="flex flex-col gap-2">
+                <label for="user" class="text-base font-medium"
+                  >Usuario <strong class="text-red-600">*</strong></label
+                >
+                <input
+                  id="user"
+                  type="text"
+                  placeholder="@example"
+                  class="px-2 py-1.5 border-2 border-gray-200 rounded-b-lg border-collapse focus:border-blue-400 focus:outline-none disabled:opacity-50 text-lg"
+                  formControlName="user"
+                  aria-label="Username"
+                  aria-describedby="addon-wrapping"
+                />
+              </div>
+              <div class="flex flex-col gap-2">
+                <label for="user" class="text-base font-medium"
+                  >Contraseña <strong class="text-red-600">*</strong></label
+                >
+                <input
+                  id="password"
+                  type="password"
+                  placeholder="***************"
+                  class="px-2 py-1.5 border-2 border-gray-200 rounded-b-lg border-collapse focus:border-blue-400 focus:outline-none disabled:opacity-25 text-lg"
+                  formControlName="password"
+                  aria-label="Password"
+                  aria-describedby="addon-wrapping"
+                />
+              </div>
+              <span
+                class="text-[14px] font-normal text-blue-600 cursor-pointer text-start hover:underline"
+                >Olvidé mi contraseña</span
+              >
+
+              <button
+                type="submit"
+                [disabled]="myLoginForm.invalid"
+                class="text-[18px] py-2 font-semibold text-gray-200 bg-blue-600 hover:bg-sky-800 tracking-tight hover:tracking-wide rounded-md ring-1"
+              >
+                Acceder
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

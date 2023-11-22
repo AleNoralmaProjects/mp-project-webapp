@@ -1,0 +1,514 @@
+<div
+  class="flex h-screen w-full flex-row items-center justify-center overflow-y-auto"
+>
+  <!-- FUCTION IMPORT SIDEBAR-->
+  <div
+    *ngIf="isExpanded"
+    [ngClass]="{ 'min-w-[260px]': isExpanded, '[60px]': !isExpanded }"
+    class="flex h-full flex-col gap-y-2 overflow-y-auto bg-gray-50 px-4 py-8 dark:bg-slate-900 transition-all duration-300"
+  >
+    <!-- LOGOS MENU -->
+    <div class="flex flex-row justify-center items-center gap-2.5">
+      <div>
+        <img
+          src="../../../assets/images/EcuadorLogo.svg"
+          alt=""
+          srcset=""
+          class="w-[30px] h-[30px]"
+        />
+      </div>
+      <div>
+        <span class="font-semibold text-base tracking-wide text-white">
+          MAPA PARLANTE
+        </span>
+      </div>
+      <div>
+        <button (click)="toggleSidebar()" class="text-white">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            fill="currentColor"
+            class="h-[30px] w-[30px]"
+          >
+            <path
+              fill-rule="evenodd"
+              d="M3 6.75A.75.75 0 013.75 6h16.5a.75.75 0 010 1.5H3.75A.75.75 0 013 6.75zM3 12a.75.75 0 01.75-.75h16.5a.75.75 0 010 1.5H3.75A.75.75 0 013 12zm0 5.25a.75.75 0 01.75-.75h16.5a.75.75 0 010 1.5H3.75a.75.75 0 01-.75-.75z"
+              clip-rule="evenodd"
+            />
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <!--  HOME ADMINISTRAR -->
+    <ul
+      class="mt-4 space-y-5 border-t border-gray-200 pt-7 text-white dark:border-gray-700"
+    >
+      <div class="flex flex-row items-center gap-x-3">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 24 24"
+          fill="currentColor"
+          class="h-6 w-6 text-lime-500"
+        >
+          <path
+            d="M11.47 3.84a.75.75 0 011.06 0l8.69 8.69a.75.75 0 101.06-1.06l-8.689-8.69a2.25 2.25 0 00-3.182 0l-8.69 8.69a.75.75 0 001.061 1.06l8.69-8.69z"
+          />
+          <path
+            d="M12 5.432l8.159 8.159c.03.03.06.058.091.086v6.198c0 1.035-.84 1.875-1.875 1.875H15a.75.75 0 01-.75-.75v-4.5a.75.75 0 00-.75-.75h-3a.75.75 0 00-.75.75V21a.75.75 0 01-.75.75H5.625a1.875 1.875 0 01-1.875-1.875v-6.198a2.29 2.29 0 00.091-.086L12 5.43z"
+          />
+        </svg>
+        <p
+          class="text-[17px] font-medium tracking-widest text-lime-500"
+          [class.hidden]="!isExpanded"
+        >
+          ADMINISTRAR
+        </p>
+      </div>
+      <div class="flex flex-col justify-center gap-y-0.5">
+        <div
+          class="flex flex-row gap-3 text-[16px] tracking-wide transition-shadow px-2 py-2 hover:bg-gray-800 cursor-pointer group hover:font-semibold rounded-lg"
+          [routerLink]="['home']"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            fill="currentColor"
+            class="h-6 w-6"
+            routerLinkActive="text-blue-400"
+          >
+            <path
+              fill-rule="evenodd"
+              d="M8.161 2.58a1.875 1.875 0 011.678 0l4.993 2.498c.106.052.23.052.336 0l3.869-1.935A1.875 1.875 0 0121.75 4.82v12.485c0 .71-.401 1.36-1.037 1.677l-4.875 2.437a1.875 1.875 0 01-1.676 0l-4.994-2.497a.375.375 0 00-.336 0l-3.868 1.935A1.875 1.875 0 012.25 19.18V6.695c0-.71.401-1.36 1.036-1.677l4.875-2.437zM9 6a.75.75 0 01.75.75V15a.75.75 0 01-1.5 0V6.75A.75.75 0 019 6zm6.75 3a.75.75 0 00-1.5 0v8.25a.75.75 0 001.5 0V9z"
+              clip-rule="evenodd"
+            />
+          </svg>
+          <span
+            class="relative flex flex-row gap-2 items-center"
+            routerLinkActive="  text-blue-400 font-semibold uppercase "
+            [class.hidden]="!isExpanded"
+          >
+            Ver Mapa
+          </span>
+        </div>
+        <div
+          class="flex flex-row gap-3 text-[16px] tracking-wide transition-shadow px-2 py-2 hover:bg-gray-800 cursor-pointer group hover:font-semibold rounded-lg"
+          [routerLink]="['brigada-eais']"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            fill="currentColor"
+            class="h-6 w-6"
+            routerLinkActive="text-blue-400"
+          >
+            <path
+              fill-rule="evenodd"
+              d="M8.25 6.75a3.75 3.75 0 117.5 0 3.75 3.75 0 01-7.5 0zM15.75 9.75a3 3 0 116 0 3 3 0 01-6 0zM2.25 9.75a3 3 0 116 0 3 3 0 01-6 0zM6.31 15.117A6.745 6.745 0 0112 12a6.745 6.745 0 016.709 7.498.75.75 0 01-.372.568A12.696 12.696 0 0112 21.75c-2.305 0-4.47-.612-6.337-1.684a.75.75 0 01-.372-.568 6.787 6.787 0 011.019-4.38z"
+              clip-rule="evenodd"
+            />
+            <path
+              d="M5.082 14.254a8.287 8.287 0 00-1.308 5.135 9.687 9.687 0 01-1.764-.44l-.115-.04a.563.563 0 01-.373-.487l-.01-.121a3.75 3.75 0 013.57-4.047zM20.226 19.389a8.287 8.287 0 00-1.308-5.135 3.75 3.75 0 013.57 4.047l-.01.121a.563.563 0 01-.373.486l-.115.04c-.567.2-1.156.349-1.764.441z"
+            />
+          </svg>
+          <span
+            class="relative flex flex-row gap-2 items-center"
+            routerLinkActive="  text-blue-400 font-semibold uppercase "
+            [class.hidden]="!isExpanded"
+          >
+            Brigada EAIS
+          </span>
+        </div>
+        <div
+          class="flex flex-row gap-3 text-[16px] tracking-wide transition-shadow px-2 py-2 hover:bg-gray-800 cursor-pointer group hover:font-semibold rounded-lg"
+          [routerLink]="['manage-professional']"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            fill="currentColor"
+            class="h-6 w-6"
+            routerLinkActive="text-blue-400 "
+          >
+            <path
+              fill-rule="evenodd"
+              d="M7.5 6a4.5 4.5 0 119 0 4.5 4.5 0 01-9 0zM3.751 20.105a8.25 8.25 0 0116.498 0 .75.75 0 01-.437.695A18.683 18.683 0 0112 22.5c-2.786 0-5.433-.608-7.812-1.7a.75.75 0 01-.437-.695z"
+              clip-rule="evenodd"
+            />
+          </svg>
+          <span
+            class="relative flex flex-row gap-2 items-center"
+            routerLinkActive="  text-blue-400 font-semibold uppercase "
+            [class.hidden]="!isExpanded"
+          >
+            Gestionar Profesional</span
+          >
+        </div>
+        <div
+          class="flex flex-row gap-3 text-[16px] tracking-wide transition-shadow px-2 py-2 hover:bg-gray-800 cursor-pointer group hover:font-semibold rounded-lg"
+          [routerLink]="['manage-profession']"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="icon icon-tabler icon-tabler-briefcase"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            stroke-width="2"
+            stroke="currentColor"
+            fill="none"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            routerLinkActive="text-blue-400 "
+          >
+            <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+            <path
+              d="M3 7m0 2a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v9a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2z"
+            ></path>
+            <path d="M8 7v-2a2 2 0 0 1 2 -2h4a2 2 0 0 1 2 2v2"></path>
+            <path d="M12 12l0 .01"></path>
+            <path d="M3 13a20 20 0 0 0 18 0"></path>
+          </svg>
+          <span
+            class="relative flex flex-row gap-2 items-center"
+            routerLinkActive="  text-blue-400 font-semibold uppercase "
+            [class.hidden]="!isExpanded"
+          >
+            Gestionar Profesión</span
+          >
+        </div>
+        <div
+          class="flex flex-row gap-3 text-[16px] tracking-wide transition-shadow px-2 py-2 hover:bg-gray-800 cursor-pointer group hover:font-semibold rounded-lg"
+          [routerLink]="['manage-infoeais']"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            fill="currentColor"
+            class="h-6 w-6"
+            routerLinkActive="text-blue-400 "
+          >
+            <path
+              fill-rule="evenodd"
+              d="M11.54 22.351l.07.04.028.016a.76.76 0 00.723 0l.028-.015.071-.041a16.975 16.975 0 001.144-.742 19.58 19.58 0 002.683-2.282c1.944-1.99 3.963-4.98 3.963-8.827a8.25 8.25 0 00-16.5 0c0 3.846 2.02 6.837 3.963 8.827a19.58 19.58 0 002.682 2.282 16.975 16.975 0 001.145.742zM12 13.5a3 3 0 100-6 3 3 0 000 6z"
+              clip-rule="evenodd"
+            />
+          </svg>
+          <span
+            class="relative flex flex-row gap-2 items-center"
+            routerLinkActive="  text-blue-400 font-semibold uppercase "
+            [class.hidden]="!isExpanded"
+          >
+            Gestionar EAIS</span
+          >
+        </div>
+      </div>
+    </ul>
+    <!--  CONFIGURACION -->
+    <ul
+      class="mt-4 space-y-4 border-t border-gray-200 pt-7 text-white dark:border-gray-700"
+    >
+      <div class="flex flex-row items-center gap-x-3">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 24 24"
+          fill="currentColor"
+          class="h-6 w-6 text-lime-500"
+        >
+          <path
+            fill-rule="evenodd"
+            d="M11.078 2.25c-.917 0-1.699.663-1.85 1.567L9.05 4.889c-.02.12-.115.26-.297.348a7.493 7.493 0 00-.986.57c-.166.115-.334.126-.45.083L6.3 5.508a1.875 1.875 0 00-2.282.819l-.922 1.597a1.875 1.875 0 00.432 2.385l.84.692c.095.078.17.229.154.43a7.598 7.598 0 000 1.139c.015.2-.059.352-.153.43l-.841.692a1.875 1.875 0 00-.432 2.385l.922 1.597a1.875 1.875 0 002.282.818l1.019-.382c.115-.043.283-.031.45.082.312.214.641.405.985.57.182.088.277.228.297.35l.178 1.071c.151.904.933 1.567 1.85 1.567h1.844c.916 0 1.699-.663 1.85-1.567l.178-1.072c.02-.12.114-.26.297-.349.344-.165.673-.356.985-.57.167-.114.335-.125.45-.082l1.02.382a1.875 1.875 0 002.28-.819l.923-1.597a1.875 1.875 0 00-.432-2.385l-.84-.692c-.095-.078-.17-.229-.154-.43a7.614 7.614 0 000-1.139c-.016-.2.059-.352.153-.43l.84-.692c.708-.582.891-1.59.433-2.385l-.922-1.597a1.875 1.875 0 00-2.282-.818l-1.02.382c-.114.043-.282.031-.449-.083a7.49 7.49 0 00-.985-.57c-.183-.087-.277-.227-.297-.348l-.179-1.072a1.875 1.875 0 00-1.85-1.567h-1.843zM12 15.75a3.75 3.75 0 100-7.5 3.75 3.75 0 000 7.5z"
+            clip-rule="evenodd"
+          />
+        </svg>
+        <p
+          class="text-[17px] font-medium tracking-widest text-lime-500"
+          [class.hidden]="!isExpanded"
+        >
+          CONFIGURACIÓN
+        </p>
+      </div>
+      <div class="flex flex-col justify-center px-0">
+        <div
+          class="flex flex-row gap-3 text-[16px] tracking-wide transition-shadow px-2 py-2 hover:bg-gray-800 cursor-pointer group hover:font-semibold rounded-lg"
+          (click)="closeSesion()"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            fill="currentColor"
+            class="h-6 w-6"
+          >
+            <path
+              fill-rule="evenodd"
+              d="M7.5 3.75A1.5 1.5 0 006 5.25v13.5a1.5 1.5 0 001.5 1.5h6a1.5 1.5 0 001.5-1.5V15a.75.75 0 011.5 0v3.75a3 3 0 01-3 3h-6a3 3 0 01-3-3V5.25a3 3 0 013-3h6a3 3 0 013 3V9A.75.75 0 0115 9V5.25a1.5 1.5 0 00-1.5-1.5h-6zm10.72 4.72a.75.75 0 011.06 0l3 3a.75.75 0 010 1.06l-3 3a.75.75 0 11-1.06-1.06l1.72-1.72H9a.75.75 0 010-1.5h10.94l-1.72-1.72a.75.75 0 010-1.06z"
+              clip-rule="evenodd"
+            />
+          </svg>
+          <span
+            class="relative flex flex-row gap-2 items-center"
+            routerLinkActive="  text-blue-400 font-semibold uppercase "
+            [class.hidden]="!isExpanded"
+          >
+            Cerrar Sesion
+          </span>
+        </div>
+        <div
+          class="flex flex-row gap-3 text-[16px] tracking-wide transition-shadow px-2 py-2 hover:bg-gray-800 cursor-pointer group hover:font-semibold rounded-lg"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            fill="currentColor"
+            class="h-6 w-6"
+          >
+            <path
+              fill-rule="evenodd"
+              d="M18.685 19.097A9.723 9.723 0 0021.75 12c0-5.385-4.365-9.75-9.75-9.75S2.25 6.615 2.25 12a9.723 9.723 0 003.065 7.097A9.716 9.716 0 0012 21.75a9.716 9.716 0 006.685-2.653zm-12.54-1.285A7.486 7.486 0 0112 15a7.486 7.486 0 015.855 2.812A8.224 8.224 0 0112 20.25a8.224 8.224 0 01-5.855-2.438zM15.75 9a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0z"
+              clip-rule="evenodd"
+            />
+          </svg>
+          <span
+            class="relative flex flex-row gap-2 items-center"
+            routerLinkActive="  text-blue-400 font-semibold uppercase "
+            [class.hidden]="!isExpanded"
+          >
+            Perfil de Usuario</span
+          >
+        </div>
+      </div>
+    </ul>
+  </div>
+
+  <!--  DUPLICATE FUCTION IMPORT -->
+  <div
+    *ngIf="!isExpanded"
+    [ngClass]="{ 'min-w-[260px]': isExpanded, '[60px]': !isExpanded }"
+    class="flex h-full flex-col gap-y-2 overflow-y-auto bg-gray-50 px-2 py-7 dark:bg-slate-900 transition-all duration-300"
+  >
+    <div class="flex flex-col gap-5">
+      <div>
+        <img
+          src="../../../assets/images/EcuadorLogo.svg"
+          alt=""
+          srcset=""
+          class="w-[30px] h-[30px]"
+        />
+      </div>
+      <div class="hidden md:flex ">
+        <button (click)="toggleSidebar()" class="text-white">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            fill="currentColor"
+            class="h-[30px] w-[30px]"
+          >
+            <path
+              fill-rule="evenodd"
+              d="M3 6.75A.75.75 0 013.75 6h16.5a.75.75 0 010 1.5H3.75A.75.75 0 013 6.75zM3 12a.75.75 0 01.75-.75h16.5a.75.75 0 010 1.5H3.75A.75.75 0 013 12zm0 5.25a.75.75 0 01.75-.75h16.5a.75.75 0 010 1.5H3.75a.75.75 0 01-.75-.75z"
+              clip-rule="evenodd"
+            />
+          </svg>
+        </button>
+      </div>
+    </div>
+    <ul
+      class="mt-3 space-y-4 border-t border-gray-200 pt-6 text-white dark:border-gray-700"
+    >
+      <div class="flex flex-col justify-center">
+        <div
+          class="flex flex-row gap-3 text-[16px] tracking-wide transition-shadow px-0.5 py-2 hover:bg-gray-800 cursor-pointer group hover:font-semibold rounded-lg"
+          [routerLink]="['home']"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            fill="currentColor"
+            class="h-6 w-6"
+            routerLinkActive="text-blue-400"
+          >
+            <path
+              fill-rule="evenodd"
+              d="M8.161 2.58a1.875 1.875 0 011.678 0l4.993 2.498c.106.052.23.052.336 0l3.869-1.935A1.875 1.875 0 0121.75 4.82v12.485c0 .71-.401 1.36-1.037 1.677l-4.875 2.437a1.875 1.875 0 01-1.676 0l-4.994-2.497a.375.375 0 00-.336 0l-3.868 1.935A1.875 1.875 0 012.25 19.18V6.695c0-.71.401-1.36 1.036-1.677l4.875-2.437zM9 6a.75.75 0 01.75.75V15a.75.75 0 01-1.5 0V6.75A.75.75 0 019 6zm6.75 3a.75.75 0 00-1.5 0v8.25a.75.75 0 001.5 0V9z"
+              clip-rule="evenodd"
+            />
+          </svg>
+          <span
+            class="relative flex flex-row gap-2 items-center"
+            routerLinkActive="  text-blue-400 font-semibold uppercase "
+            [class.hidden]="!isExpanded"
+          >
+            Ver Mapa
+          </span>
+        </div>
+        <div
+          class="flex flex-row gap-3 text-[16px] tracking-wide transition-shadow px-0.5 py-2 hover:bg-gray-800 cursor-pointer group hover:font-semibold rounded-lg"
+          [routerLink]="['brigada-eais']"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            fill="currentColor"
+            class="h-6 w-6"
+            routerLinkActive="text-blue-400"
+          >
+            <path
+              fill-rule="evenodd"
+              d="M8.25 6.75a3.75 3.75 0 117.5 0 3.75 3.75 0 01-7.5 0zM15.75 9.75a3 3 0 116 0 3 3 0 01-6 0zM2.25 9.75a3 3 0 116 0 3 3 0 01-6 0zM6.31 15.117A6.745 6.745 0 0112 12a6.745 6.745 0 016.709 7.498.75.75 0 01-.372.568A12.696 12.696 0 0112 21.75c-2.305 0-4.47-.612-6.337-1.684a.75.75 0 01-.372-.568 6.787 6.787 0 011.019-4.38z"
+              clip-rule="evenodd"
+            />
+            <path
+              d="M5.082 14.254a8.287 8.287 0 00-1.308 5.135 9.687 9.687 0 01-1.764-.44l-.115-.04a.563.563 0 01-.373-.487l-.01-.121a3.75 3.75 0 013.57-4.047zM20.226 19.389a8.287 8.287 0 00-1.308-5.135 3.75 3.75 0 013.57 4.047l-.01.121a.563.563 0 01-.373.486l-.115.04c-.567.2-1.156.349-1.764.441z"
+            />
+          </svg>
+          <span
+            class="relative flex flex-row gap-2 items-center"
+            routerLinkActive="  text-blue-400 font-semibold uppercase "
+            [class.hidden]="!isExpanded"
+          >
+            Brigada EAIS
+          </span>
+        </div>
+        <div
+          class="flex flex-row gap-3 text-[16px] tracking-wide transition-shadow px-0.5 py-2 hover:bg-gray-800 cursor-pointer group hover:font-semibold rounded-lg"
+          [routerLink]="['manage-professional']"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            fill="currentColor"
+            class="h-6 w-6"
+            routerLinkActive="text-blue-400 "
+          >
+            <path
+              fill-rule="evenodd"
+              d="M7.5 6a4.5 4.5 0 119 0 4.5 4.5 0 01-9 0zM3.751 20.105a8.25 8.25 0 0116.498 0 .75.75 0 01-.437.695A18.683 18.683 0 0112 22.5c-2.786 0-5.433-.608-7.812-1.7a.75.75 0 01-.437-.695z"
+              clip-rule="evenodd"
+            />
+          </svg>
+          <span
+            class="relative flex flex-row gap-2 items-center"
+            routerLinkActive="  text-blue-400 font-semibold uppercase "
+            [class.hidden]="!isExpanded"
+          >
+            Gestionar Profesional</span
+          >
+        </div>
+        <div
+          class="flex flex-row gap-3 text-[16px] tracking-wide transition-shadow px-0.5 py-2 hover:bg-gray-800 cursor-pointer group hover:font-semibold rounded-lg"
+          [routerLink]="['manage-profession']"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="icon icon-tabler icon-tabler-briefcase"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            stroke-width="2"
+            stroke="currentColor"
+            fill="none"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            routerLinkActive="text-blue-400 "
+          >
+            <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+            <path
+              d="M3 7m0 2a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v9a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2z"
+            ></path>
+            <path d="M8 7v-2a2 2 0 0 1 2 -2h4a2 2 0 0 1 2 2v2"></path>
+            <path d="M12 12l0 .01"></path>
+            <path d="M3 13a20 20 0 0 0 18 0"></path>
+          </svg>
+          <span
+            class="relative flex flex-row gap-2 items-center"
+            routerLinkActive="  text-blue-400 font-semibold uppercase "
+            [class.hidden]="!isExpanded"
+          >
+            Gestionar Profesión</span
+          >
+        </div>
+        <div
+          class="flex flex-row gap-3 text-[16px] tracking-wide transition-shadow px-0.5 py-2 hover:bg-gray-800 cursor-pointer group hover:font-semibold rounded-lg"
+          [routerLink]="['manage-infoeais']"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            fill="currentColor"
+            class="h-6 w-6"
+            routerLinkActive="text-blue-400 "
+          >
+            <path
+              fill-rule="evenodd"
+              d="M11.54 22.351l.07.04.028.016a.76.76 0 00.723 0l.028-.015.071-.041a16.975 16.975 0 001.144-.742 19.58 19.58 0 002.683-2.282c1.944-1.99 3.963-4.98 3.963-8.827a8.25 8.25 0 00-16.5 0c0 3.846 2.02 6.837 3.963 8.827a19.58 19.58 0 002.682 2.282 16.975 16.975 0 001.145.742zM12 13.5a3 3 0 100-6 3 3 0 000 6z"
+              clip-rule="evenodd"
+            />
+          </svg>
+          <span
+            class="relative flex flex-row gap-2 items-center"
+            routerLinkActive="  text-blue-400 font-semibold uppercase "
+            [class.hidden]="!isExpanded"
+          >
+            Gestionar EAIS</span
+          >
+        </div>
+      </div>
+    </ul>
+    <ul
+      class="mt-3 space-y-4 border-t border-gray-200 pt-6 text-white dark:border-gray-700"
+    >
+      <div class="flex flex-col justify-center px-0">
+        <div
+          class="flex flex-row gap-3 text-[16px] tracking-wide transition-shadow px-0.5 py-2 hover:bg-gray-800 cursor-pointer group hover:font-semibold rounded-lg"
+          (click)="closeSesion()"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            fill="currentColor"
+            class="h-6 w-6"
+          >
+            <path
+              fill-rule="evenodd"
+              d="M7.5 3.75A1.5 1.5 0 006 5.25v13.5a1.5 1.5 0 001.5 1.5h6a1.5 1.5 0 001.5-1.5V15a.75.75 0 011.5 0v3.75a3 3 0 01-3 3h-6a3 3 0 01-3-3V5.25a3 3 0 013-3h6a3 3 0 013 3V9A.75.75 0 0115 9V5.25a1.5 1.5 0 00-1.5-1.5h-6zm10.72 4.72a.75.75 0 011.06 0l3 3a.75.75 0 010 1.06l-3 3a.75.75 0 11-1.06-1.06l1.72-1.72H9a.75.75 0 010-1.5h10.94l-1.72-1.72a.75.75 0 010-1.06z"
+              clip-rule="evenodd"
+            />
+          </svg>
+          <span
+            class="relative flex flex-row gap-2 items-center"
+            routerLinkActive="  text-blue-400 font-semibold uppercase "
+            [class.hidden]="!isExpanded"
+          >
+            Cerrar Sesion
+          </span>
+        </div>
+        <div
+          class="flex flex-row gap-3 text-[16px] tracking-wide transition-shadow px-0.5 py-2 hover:bg-gray-800 cursor-pointer group hover:font-semibold rounded-lg"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            fill="currentColor"
+            class="h-6 w-6"
+          >
+            <path
+              fill-rule="evenodd"
+              d="M18.685 19.097A9.723 9.723 0 0021.75 12c0-5.385-4.365-9.75-9.75-9.75S2.25 6.615 2.25 12a9.723 9.723 0 003.065 7.097A9.716 9.716 0 0012 21.75a9.716 9.716 0 006.685-2.653zm-12.54-1.285A7.486 7.486 0 0112 15a7.486 7.486 0 015.855 2.812A8.224 8.224 0 0112 20.25a8.224 8.224 0 01-5.855-2.438zM15.75 9a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0z"
+              clip-rule="evenodd"
+            />
+          </svg>
+          <span
+            class="relative flex flex-row gap-2 items-center"
+            routerLinkActive="  text-blue-400 font-semibold uppercase "
+            [class.hidden]="!isExpanded"
+          >
+            Perfil de Usuario</span
+          >
+        </div>
+      </div>
+    </ul>
+  </div>
+  <div class="h-full w-full overflow-y-auto">
+    <router-outlet></router-outlet>
+  </div>
+</div>
