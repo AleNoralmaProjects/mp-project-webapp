@@ -7,6 +7,7 @@ import { BrigadaEaisComponent } from './pages/brigada-eais/brigada-eais.componen
 import { ManageProfessionalComponent } from './pages/manage-professional/manage-professional.component';
 import { ManageProfessionComponent } from './pages/manage-profession/manage-profession.component';
 import { ManageInfoeaisComponent } from './pages/manage-infoeais/manage-infoeais.component';
+import { AdminProfileComponent } from './pages/admin-profile/admin-profile.component';
 
 const routes: Routes = [
   {
@@ -35,8 +36,17 @@ const routes: Routes = [
         component: ManageInfoeaisComponent,
       },
       {
+        path: 'admin-profile',
+        component: AdminProfileComponent,
+      },
+      {
         path: '**',
         component: PageNotFoundComponent,
+      },
+      {
+        path: '',
+        redirectTo: 'home',
+        pathMatch: 'full',
       },
     ],
   },

@@ -4,7 +4,7 @@ import { PageNotFoundComponent } from '../auth/page-not-found/page-not-found.com
 
 const routes: Routes = [
   {
-    path: 'admin',
+    path: 'administrador',
     loadChildren: () =>
       import('./admin/admin.module').then((m) => m.AdminModule),
   },

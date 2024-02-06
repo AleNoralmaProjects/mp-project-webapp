@@ -1,0 +1,718 @@
+<div class="h-screen flex flex-row gap-0 p-0 relative">
+  <!-- MOSTRAR MAPA -->
+  <div
+    id="map"
+    class="flex bg-no-repeat active:cursor-move h-full w-3/4 md:w-5/6"
+  ></div>
+
+  <!-- Contenedor a la derecha del mapa -->
+  <div
+    class="h-3/4 w-1/4 md:w-[25%] bg-gray-100 border-l border-gray-300 overflow-auto"
+  >
+    <div
+      class="text-center text-[15px] justify-center font-semibold p-2 hover:text-blue-500"
+    >
+      CATEGORÍAS DE BÚSQUEDA
+    </div>
+    <div class="flex flex-col p-2 gap-[16px]">
+      <div>
+        <!-- YEAR -->
+        <ng-select
+          class="bg-white text-black font-bold w-full text-center text-[14px] h-12"
+          placeholder="Años"
+          [items]="array_years"
+          [multiple]="true"
+          bindLabel="label"
+          [selectableGroup]="true"
+          [closeOnSelect]="false"
+          bindValue="value"
+          (change)="filter()"
+          [(ngModel)]="select_year"
+          [appendTo]="'body'"
+        >
+          <ng-template
+            ng-option-tmp
+            let-item="item"
+            let-item$="item$"
+            let-index="index"
+          >
+            <input id="item-{{ index }}" type="checkbox" />
+            {{ item.label }}
+          </ng-template>
+        </ng-select>
+      </div>
+      <div>
+        <!-- AGES -->
+        <ng-select
+          class="bg-white text-black font-bold w-full text-center justify-center text-[14px] h-12"
+          placeholder="Edad"
+          [items]="array_ages"
+          [multiple]="true"
+          bindLabel="label"
+          [selectableGroup]="true"
+          [closeOnSelect]="false"
+          bindValue="value"
+          (change)="filter()"
+          [(ngModel)]="select_age"
+          [appendTo]="'body'"
+        >
+          <ng-template
+            ng-option-tmp
+            let-item="item"
+            let-item$="item$"
+            let-index="index"
+          >
+            <input id="item-{{ index }}" type="checkbox" />
+            {{ item.label }}
+          </ng-template>
+        </ng-select>
+      </div>
+      <div>
+        <!-- R BIOLOGICAL -->
+        <ng-select
+          class="bg-white text-black font-bold w-full text-center text-[14px] h-12"
+          placeholder="Riesgos Biológicos"
+          [items]="array_rbiologicals"
+          [multiple]="true"
+          bindLabel="label"
+          [selectableGroup]="true"
+          [closeOnSelect]="false"
+          bindValue="value"
+          (change)="filter()"
+          [(ngModel)]="select_rbiological"
+          [appendTo]="'body'"
+        >
+          <ng-template
+            ng-option-tmp
+            let-item="item"
+            let-item$="item$"
+            let-index="index"
+          >
+            <input id="item-{{ index }}" type="checkbox" />
+            {{ item.label }}
+          </ng-template>
+        </ng-select>
+      </div>
+      <div>
+        <!-- R AMBIENTALES -->
+        <ng-select
+          class="bg-white text-black font-bold w-full text-center text-[14px] h-12"
+          placeholder="Riesgos Ambientales"
+          [items]="array_renvironmentals"
+          [multiple]="true"
+          bindLabel="label"
+          [selectableGroup]="true"
+          [closeOnSelect]="false"
+          bindValue="value"
+          (change)="filter()"
+          [(ngModel)]="select_renvironmental"
+          [appendTo]="'body'"
+        >
+          <ng-template
+            ng-option-tmp
+            let-item="item"
+            let-item$="item$"
+            let-index="index"
+          >
+            <input id="item-{{ index }}" type="checkbox" />
+            {{ item.label }}
+          </ng-template>
+        </ng-select>
+      </div>
+      <div>
+        <!-- R SOCIOECONOMICOS -->
+        <ng-select
+          class="bg-white text-black font-bold w-full text-center text-[14px] h-12"
+          placeholder="Riesgos Socioeconómicos"
+          [items]="array_rsocioeconomics"
+          [multiple]="true"
+          bindLabel="label"
+          [selectableGroup]="true"
+          [closeOnSelect]="false"
+          bindValue="value"
+          (change)="filter()"
+          [(ngModel)]="select_socioeconomic"
+          [appendTo]="'body'"
+        >
+          <ng-template
+            ng-option-tmp
+            let-item="item"
+            let-item$="item$"
+            let-index="index"
+          >
+            <input id="item-{{ index }}" type="checkbox" />
+            {{ item.label }}
+          </ng-template>
+        </ng-select>
+      </div>
+      <div>
+        <!-- G PRIORITARIOS -->
+        <ng-select
+          class="bg-white text-black font-bold w-full text-center text-[14px] h-12"
+          placeholder="Grupos Prioritarios"
+          [items]="array_gprioritys"
+          [multiple]="true"
+          bindLabel="label"
+          [selectableGroup]="true"
+          [closeOnSelect]="false"
+          bindValue="value"
+          (change)="filter()"
+          [(ngModel)]="select_gpriority"
+          [appendTo]="'body'"
+        >
+          <ng-template
+            ng-option-tmp
+            let-item="item"
+            let-item$="item$"
+            let-index="index"
+          >
+            <input id="item-{{ index }}" type="checkbox" />
+            {{ item.label }}
+          </ng-template>
+        </ng-select>
+      </div>
+      <div>
+        <!-- G VULNERABLES -->
+        <ng-select
+          class="bg-white text-black font-bold w-full text-center text-[14px] h-12"
+          placeholder="Grupos Vulnerables"
+          [items]="array_gvulnerables"
+          [multiple]="true"
+          bindLabel="label"
+          [selectableGroup]="true"
+          [closeOnSelect]="false"
+          bindValue="value"
+          (change)="filter()"
+          [(ngModel)]="select_gvulnerable"
+          [appendTo]="'body'"
+        >
+          <ng-template
+            ng-option-tmp
+            let-item="item"
+            let-item$="item$"
+            let-index="index"
+          >
+            <input id="item-{{ index }}" type="checkbox" />
+            {{ item.label }}
+          </ng-template>
+        </ng-select>
+      </div>
+    </div>
+  </div>
+
+  <!-- MOSTRAR BOTON DE BUSQUEDA -->
+  <div class="absolute top-2 left-14 z-10">
+    <div class="sm:block sm:relative">
+      <input
+        type="text"
+        placeholder="Buscar"
+        class="custom-search-button rounded-full transition hover:shadow-xl group"
+        [(ngModel)]="cedula"
+        (onchange)="filter()"
+      />
+      <span class="absolute inset-y-0 grid w-14 place-content-center end-0">
+        <div class="flex flex-row gap-2">
+          <button type="button" (click)="filterCedula()">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke-width="1.5"
+              stroke="currentColor"
+              class="h-4 w-4 text-blue-800"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z"
+              />
+            </svg>
+          </button>
+          <button (click)="filter()">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="icon icon-tabler icon-tabler-trash"
+              class="h-5 w-5 text-red-700"
+              viewBox="0 0 24 24"
+              stroke-width="2"
+              stroke="currentColor"
+              fill="none"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+              <path d="M4 7l16 0" />
+              <path d="M10 11l0 6" />
+              <path d="M14 11l0 6" />
+              <path d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12" />
+              <path d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3" />
+            </svg>
+          </button>
+        </div>
+      </span>
+    </div>
+  </div>
+
+  <!-- Contenedor en la parte inferior del mapa -->
+  <div
+    class="w-full h-1/4 bg-gray-100 absolute bottom-0 overflow-auto border-t border-gray-300"
+  >
+    <div class="sm:col-span-4 md:col-span-4 flex flex-col flex-auto">
+      <div
+        class="grid grid-cols-1 lg:grid-cols-9 grid-flow-row gap-6 w-full m-2"
+      >
+        <!-- Desnutrición aguda menores de cinco años -->
+        <div class="sm:col-span-1 flex flex-col flex-auto">
+          <div class="flex-auto grid grid-cols-1 sm:col-span-8 gap-y-2">
+            <div
+              class="sm:col-span-2 flex flex-col flex-auto p-2 bg-card shadow-xl rounded-md overflow-hidden"
+            >
+              <div class="flex items-center justify-center border-b">
+                <div class="text-base font-medium tracking-tight leading-6">
+                  <!-- PONER AQUI IMG O ICONO i -->
+                </div>
+              </div>
+              <div class="flex items-center mt-1">
+                <div class="flex flex-col flex-auto">
+                  <div
+                    class="text-xs text-primary-500 tracking-tight leading-tight"
+                  >
+                    <p class="text-center">
+                      Desnutrición aguda menores de cinco años
+                    </p>
+                    <p class="text-base text-center font-semibold mt-4">Uno</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Obesidad menores de cinco años -->
+        <div class="sm:col-span-1 flex flex-col flex-auto">
+          <div class="flex-auto grid grid-cols-1 sm:col-span-8 gap-y-2">
+            <div
+              class="sm:col-span-2 flex flex-col flex-auto p-2 bg-card shadow-xl rounded-md overflow-hidden"
+            >
+              <div class="flex items-center justify-center border-b">
+                <div
+                  class="text-base font-medium tracking-tight leading-6"
+                ></div>
+              </div>
+              <div class="flex items-center mt-1">
+                <div class="flex flex-col flex-auto">
+                  <div
+                    class="text-xs text-primary-500 tracking-tight leading-tight"
+                  >
+                    <p class="text-center">Obesidad menores de cinco años</p>
+                    <p class="text-base text-center font-semibold mt-4">Uno</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Embarazada sin riesgo -->
+        <div class="sm:col-span-1 flex flex-col flex-auto">
+          <div class="flex-auto grid grid-cols-1 sm:col-span-8 gap-y-2">
+            <div
+              class="sm:col-span-2 flex flex-col flex-auto p-2 bg-card shadow-xl rounded-md overflow-hidden"
+            >
+              <div class="flex items-center justify-center border-b">
+                <div
+                  class="text-base font-medium tracking-tight leading-6"
+                ></div>
+              </div>
+              <div class="flex items-center mt-1">
+                <div class="flex flex-col flex-auto">
+                  <div
+                    class="text-xs text-primary-500 tracking-tight leading-tight"
+                  >
+                    <p class="text-center">Mujer embarazada sin riesgo</p>
+                    <p class="text-base text-center font-semibold mt-4">
+                      {{ pregnats?.nada }}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Embarazada con riesgo  bajo-->
+        <div class="sm:col-span-1 flex flex-col flex-auto">
+          <div class="flex-auto grid grid-cols-1 sm:col-span-8 gap-y-2">
+            <div
+              class="sm:col-span-2 flex flex-col flex-auto p-2 bg-card shadow-xl rounded-md overflow-hidden"
+            >
+              <div class="flex items-center justify-center border-b">
+                <div
+                  class="text-base font-medium tracking-tight leading-6"
+                ></div>
+              </div>
+              <div class="flex items-center mt-1">
+                <div class="flex flex-col flex-auto">
+                  <div
+                    class="text-xs text-primary-500 tracking-tight leading-tight"
+                  >
+                    <p class="text-center">Mujer embarazada con riesgo bajo</p>
+                    <p class="text-base text-center font-semibold mt-4">
+                      {{ pregnats?.riesgo_bajo }}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Discapacidad auditiva -->
+        <div class="sm:col-span-1 flex flex-col flex-auto">
+          <div class="flex-auto grid grid-cols-1 sm:col-span-8 gap-y-2">
+            <div
+              class="sm:col-span-2 flex flex-col flex-auto p-2 bg-card shadow-xl rounded-md overflow-hidden"
+            >
+              <div class="flex items-center justify-center border-b">
+                <div
+                  class="text-base font-medium tracking-tight leading-6"
+                ></div>
+              </div>
+              <div class="flex items-center mt-1">
+                <div class="flex flex-col flex-auto">
+                  <div
+                    class="text-xs text-primary-500 tracking-tight leading-tight"
+                  >
+                    <p class="text-center">Discapacidad auditiva</p>
+                    <p class="text-base text-center font-semibold mt-4">Uno</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Discapacidad física-->
+        <div class="sm:col-span-1 flex flex-col flex-auto">
+          <div class="flex-auto grid grid-cols-1 sm:col-span-8 gap-y-2">
+            <div
+              class="sm:col-span-2 flex flex-col flex-auto p-2 bg-card shadow-xl rounded-md overflow-hidden"
+            >
+              <div class="flex items-center justify-center border-b">
+                <div class="text-lg font-medium tracking-tight leading-6"></div>
+              </div>
+              <div class="flex items-center mt-1">
+                <div class="flex flex-col flex-auto">
+                  <div
+                    class="text-xs text-primary-500 tracking-tight leading-tight"
+                  >
+                    <p class="text-center">Discapacidad física</p>
+                    <p class="text-base text-center font-semibold mt-4">Uno</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Discapacidad visual-->
+        <div class="sm:col-span-1 flex flex-col flex-auto">
+          <div class="flex-auto grid grid-cols-1 sm:col-span-8 gap-y-2">
+            <div
+              class="sm:col-span-2 flex flex-col flex-auto p-2 bg-card shadow-xl rounded-md overflow-hidden"
+            >
+              <div class="flex items-center justify-center border-b">
+                <div
+                  class="text-base font-medium tracking-tight leading-6"
+                ></div>
+              </div>
+              <div class="flex items-center mt-1">
+                <div class="flex flex-col flex-auto">
+                  <div
+                    class="text-xs text-primary-500 tracking-tight leading-tight"
+                  >
+                    <p class="text-center">Discapacidad física</p>
+                    <p class="text-base text-center font-semibold mt-4">Uno</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Diabetes mellitus-->
+        <div class="sm:col-span-1 flex flex-col flex-auto">
+          <div class="flex-auto grid grid-cols-1 sm:col-span-8 gap-y-2">
+            <div
+              class="sm:col-span-2 flex flex-col flex-auto p-2 bg-card shadow-xl rounded-md overflow-hidden"
+            >
+              <div class="flex items-center justify-center border-b">
+                <div
+                  class="text-base font-medium tracking-tight leading-6"
+                ></div>
+              </div>
+              <div class="flex items-center mt-1">
+                <div class="flex flex-col flex-auto">
+                  <div
+                    class="text-xs text-primary-500 tracking-tight leading-tight"
+                  >
+                    <p class="text-center">Diabetes mellitus</p>
+                    <p class="text-base text-center font-semibold mt-4">Uno</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Tuberculosis-->
+        <div class="sm:col-span-1 flex flex-col flex-auto">
+          <div class="flex-auto grid grid-cols-1 sm:col-span-8 gap-y-2">
+            <div
+              class="sm:col-span-2 flex flex-col flex-auto p-2 bg-card shadow-xl rounded-md overflow-hidden"
+            >
+              <div class="flex items-center justify-center border-b">
+                <div
+                  class="text-base font-medium tracking-tight leading-6"
+                ></div>
+              </div>
+              <div class="flex items-center mt-1">
+                <div class="flex flex-col flex-auto">
+                  <div
+                    class="text-xs text-primary-500 tracking-tight leading-tight"
+                  >
+                    <p class="text-center">Tuberculosis</p>
+                    <p class="text-base text-center font-semibold mt-4">Uno</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Desnutrición crónica menores de cinco años-->
+        <div class="sm:col-span-1 flex flex-col flex-auto">
+          <div class="flex-auto grid grid-cols-1 sm:col-span-8 gap-y-2">
+            <div
+              class="sm:col-span-2 flex flex-col flex-auto p-2 bg-card shadow-xl rounded-md overflow-hidden"
+            >
+              <div class="flex items-center justify-center border-b">
+                <div
+                  class="text-base font-medium tracking-tight leading-6"
+                ></div>
+              </div>
+              <div class="flex items-center mt-1">
+                <div class="flex flex-col flex-auto">
+                  <div
+                    class="text-xs text-primary-500 tracking-tight leading-tight"
+                  >
+                    <p class="text-center">
+                      Desnutrición crónica menores de cinco años
+                    </p>
+                    <p class="text-base text-center font-semibold mt-4">Uno</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Obesidad en edad escolar 5 a 9 años-->
+        <div class="sm:col-span-1 flex flex-col flex-auto">
+          <div class="flex-auto grid grid-cols-1 sm:col-span-8 gap-y-2">
+            <div
+              class="sm:col-span-2 flex flex-col flex-auto p-2 bg-card shadow-xl rounded-md overflow-hidden"
+            >
+              <div class="flex items-center justify-center border-b">
+                <div
+                  class="text-base font-medium tracking-tight leading-6"
+                ></div>
+              </div>
+              <div class="flex items-center mt-1">
+                <div class="flex flex-col flex-auto">
+                  <div
+                    class="text-xs text-primary-500 tracking-tight leading-tight"
+                  >
+                    <p class="text-center">
+                      Obesidad en edad escolar 5 a 9 años
+                    </p>
+                    <p class="text-base text-center font-semibold mt-4">Uno</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Embarazada con riesgo  medio-->
+        <div class="sm:col-span-1 flex flex-col flex-auto">
+          <div class="flex-auto grid grid-cols-1 sm:col-span-8 gap-y-2">
+            <div
+              class="sm:col-span-2 flex flex-col flex-auto p-2 bg-card shadow-xl rounded-md overflow-hidden"
+            >
+              <div class="flex items-center justify-center border-b">
+                <div
+                  class="text-base font-medium tracking-tight leading-6 truncate"
+                ></div>
+              </div>
+              <div class="flex items-center mt-1">
+                <div class="flex flex-col flex-auto">
+                  <div
+                    class="text-xs text-primary-500 tracking-tight leading-tight"
+                  >
+                    <p class="text-center">Mujer embarazada con riesgo medio</p>
+                    <p class="text-base text-center font-semibold mt-4">
+                      {{ pregnats?.riesgo_alto }}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Embarazada con riesgo  alto-->
+        <div class="sm:col-span-1 flex flex-col flex-auto">
+          <div class="flex-auto grid grid-cols-1 sm:col-span-8 gap-y-2">
+            <div
+              class="sm:col-span-2 flex flex-col flex-auto p-2 bg-card shadow-xl rounded-md overflow-hidden"
+            >
+              <div class="flex items-center justify-center border-b">
+                <div
+                  class="text-base font-medium tracking-tight leading-6"
+                ></div>
+              </div>
+              <div class="flex items-center mt-1">
+                <div class="flex flex-col flex-auto">
+                  <div
+                    class="text-xs text-primary-500 tracking-tight leading-tight"
+                  >
+                    <p class="text-center">Mujer embarazada con riesgo alto</p>
+                    <p class="text-base text-center font-semibold mt-4">
+                      {{ pregnats?.riesgo_inminente }}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Discapacidad del lenguaje-->
+        <div class="sm:col-span-1 flex flex-col flex-auto">
+          <div class="flex-auto grid grid-cols-1 sm:col-span-8 gap-y-2">
+            <div
+              class="sm:col-span-2 flex flex-col flex-auto p-2 bg-card shadow-xl rounded-md overflow-hidden"
+            >
+              <div class="flex items-center justify-center border-b">
+                <div
+                  class="text-base font-medium tracking-tight leading-6 truncate"
+                ></div>
+              </div>
+              <div class="flex items-center mt-1">
+                <div class="flex flex-col flex-auto">
+                  <div
+                    class="text-xs text-primary-500 tracking-tight leading-tight"
+                  >
+                    <p class="text-center">Discapacidad del lenguaje</p>
+                    <p class="text-base text-center font-semibold mt-4">Uno</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Discapacidad intelectual-->
+        <div class="sm:col-span-1 flex flex-col flex-auto">
+          <div class="flex-auto grid grid-cols-1 sm:col-span-8 gap-y-2">
+            <div
+              class="sm:col-span-2 flex flex-col flex-auto p-2 bg-card shadow-xl rounded-md overflow-hidden"
+            >
+              <div class="flex items-center justify-center border-b">
+                <div
+                  class="text-base font-medium tracking-tight leading-6"
+                ></div>
+              </div>
+              <div class="flex items-center mt-1">
+                <div class="flex flex-col flex-auto">
+                  <div
+                    class="text-xs text-primary-500 tracking-tight leading-tight"
+                  >
+                    <p class="text-center">Discapacidad intelectual</p>
+                    <p class="text-base text-center font-semibold mt-4">Uno</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Con problemas de salud mental-->
+        <div class="sm:col-span-1 flex flex-col flex-auto">
+          <div class="flex-auto grid grid-cols-1 sm:col-span-8 gap-y-2">
+            <div
+              class="sm:col-span-2 flex flex-col flex-auto p-2 bg-card shadow-xl rounded-md overflow-hidden"
+            >
+              <div class="flex items-center justify-center border-b">
+                <div
+                  class="text-base font-medium tracking-tight leading-6"
+                ></div>
+              </div>
+              <div class="flex items-center mt-1">
+                <div class="flex flex-col flex-auto">
+                  <div
+                    class="text-xs text-primary-500 tracking-tight leading-tight"
+                  >
+                    <p class="text-center">Con problemas de salud mental</p>
+                    <p class="text-base text-center font-semibold mt-4">Uno</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Hipertensión arterial y Diabetes mellitus-->
+        <div class="sm:col-span-1 flex flex-col flex-auto">
+          <div class="flex-auto grid grid-cols-1 sm:col-span-8 gap-y-2">
+            <div
+              class="sm:col-span-2 flex flex-col flex-auto p-2 bg-card shadow-xl rounded-md overflow-hidden"
+            >
+              <div class="flex items-center justify-center border-b">
+                <div
+                  class="text-base font-medium tracking-tight leading-6 truncate"
+                ></div>
+              </div>
+              <div class="flex items-center mt-1">
+                <div class="flex flex-col flex-auto">
+                  <div
+                    class="text-xs text-primary-500 tracking-tight leading-tight"
+                  >
+                    <p class="text-center">
+                      Hipertensión arterial y Diabetes mellitus
+                    </p>
+                    <p class="text-base text-center font-semibold mt-4">Uno</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Hipertensión arterial-->
+        <div class="sm:col-span-1 flex flex-col flex-auto">
+          <div class="flex-auto grid grid-cols-1 sm:col-span-8 gap-y-2">
+            <div
+              class="sm:col-span-2 flex flex-col flex-auto p-2 bg-card shadow-xl rounded-md overflow-hidden"
+            >
+              <div class="flex items-center justify-center border-b">
+                <div
+                  class="text-base font-medium tracking-tight leading-6 truncate"
+                ></div>
+              </div>
+              <div class="flex items-center mt-1">
+                <div class="flex flex-col flex-auto">
+                  <div
+                    class="text-xs text-primary-500 tracking-tight leading-tight"
+                  >
+                    <p class="text-center">Hipertensión arterial</p>
+                    <p class="text-base text-center font-semibold mt-4">Uno</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ------------------------------------------------------ -->
+  <div id="popup" [ngClass]="getPopupStyle()" #popup></div>
+  <!-- ------------------------------------------------------ -->
+</div>

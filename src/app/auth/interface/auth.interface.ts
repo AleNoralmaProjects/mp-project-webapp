@@ -1,24 +1,22 @@
 export interface AuthResponse {
-  ok: boolean;
-  id_profesional: string;
-  role: string;
-  user: string;
-  password: string;
-  state: boolean;
+  user: User;
   token: string;
 }
 
 export interface User {
-  id: string;
-  role: string;
+  id_Profesional: string;
   user: string;
+  role: string;
+  token: string;
 }
 
-export interface UpdateToken {
-  ok: boolean;
-  id_profesional: string;
-  role: string;
-  user: string;
-  password: string;
+export interface checkToken {
+  user: User;
   token: string;
+}
+
+export enum AuthStatus {
+  checking = 'checking',
+  authentication = 'autentication',
+  nonAuthenticacion = 'nonAutenticacion',
 }

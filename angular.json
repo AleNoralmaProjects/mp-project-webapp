@@ -13,7 +13,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "allowedCommonJsDependencies": ["notiflix"],
+            "allowedCommonJsDependencies": ["notiflix", "ol-layerswitcher"],
             "outputPath": "dist/mp-project-webapp",
             "index": "src/index.html",
             "main": "src/main.ts",
@@ -26,8 +26,14 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.css"
+              "src/styles.css",
+              "node_modules/ol/ol.css",
+              "node_modules/ol-layerswitcher/dist/ol-layerswitcher.css",
+              "node_modules/@ng-select/ng-select/themes/default.theme.css",
+              "node_modules/@ng-select/ng-select/themes/material.theme.css",
+              "node_modules/ngx-toastr/toastr.css"
             ],
+
             "scripts": []
           },
           "configurations": {

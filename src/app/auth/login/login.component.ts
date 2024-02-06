@@ -18,7 +18,7 @@ export class LoginComponent {
   });
 
   get user_auth_info() {
-    return this.authService.user;
+    return this.authService.currentlyUser;
   }
 
   constructor(
@@ -28,34 +28,19 @@ export class LoginComponent {
   ) {}
 
   /* Funcion  Login */
-  loginValidation() {
+  login() {
     console.log('Has hecho clic');
     const { user, password } = this.myLoginForm.value;
-    this.authService.loginConection(user, password).subscribe((respuesta) => {
-      if (this.uuidValidateV4(respuesta)) {
-        // console.log(respuesta); ver si la informacion esta transcurriendo entre campos.
-        switch (this.user_auth_info.role) {
-          case 'ADMINISTRADOR':
-            console.log('ADMINISTRADOR');
-            this.router.navigateByUrl('/protectedroute/admin/pages/home');
-
-            break;
-          case 'EAIS':
-            console.log('EAIS');
-            this.router.navigateByUrl('/protectedroute/eais/pages/home');
-            break;
-          default:
-            console.log("I don't understand");
-            this.router.navigateByUrl('/auth/page-not-found');
-            break;
-        }
-      } else {
-        Report.failure(
-          'No autorizado',
-          `${respuesta} Vuelva a intentar`,
-          'Volver'
-        );
-      }
+    this.authService.loginConection(user, password).subscribe({
+      next: (response) => {
+        console.log(response);
+        const rol = this.user_auth_info()?.role.toLowerCase();
+        this.router.navigateByUrl(`/protectedroute/${rol}/pages/home`);
+      },
+      error: (err) => {
+        console.log(err.error);
+        Report.failure('No autorizado', err.message, 'Regresar');
+      },
     });
   }
 

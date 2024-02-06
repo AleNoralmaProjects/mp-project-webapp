@@ -1,0 +1,623 @@
+<div class="flex flex-col p-4 mt-2">
+  <div
+    class="flex-none h-44 bg-white mb-8 rounded-md items-center border border-gray-200 shadow-md"
+  >
+    <div class="flex flex-row items-center justify-between h-full p-4">
+      <div class="flex flex-row">
+        <div
+          class="flex items-center justify-center bg-gray-50 rounded-full border-solid w-[90px] h-[90px]"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke-width="1.5"
+            stroke="currentColor"
+            class="w-40 h-40 text-black"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z"
+            />
+          </svg>
+        </div>
+        <div class="ml-4">
+          <div class="p-1">{{ professionalInformation.user }}</div>
+          <div class="font-bold p-1">
+            {{
+              professionalInformation.nombres +
+                " " +
+                professionalInformation.apellidos
+            }}
+          </div>
+          <div class="p-1">
+            {{ professionalInformation.role }}
+          </div>
+        </div>
+      </div>
+      <div class="hidden md:flex">
+        <img
+          src="assets/images/ImgInstitucionalChambo.png"
+          alt=""
+          class="w-64"
+        />
+      </div>
+    </div>
+  </div>
+  <div class="flex-grow grid grid-cols-1 lg:grid-cols-2 gap-2">
+    <div
+      class="h-full bg-white rounded-sm p-4 border border-gray-200 shadow-md"
+    >
+      <div class="flex justify-between items-center mb-2">
+        <div class="font-bold">Información Personal</div>
+        <button (click)="togglePersonalModal()">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="icon icon-tabler icon-tabler-edit"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            stroke-width="2"
+            stroke="currentColor"
+            fill="none"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+            <path
+              d="M7 7h-1a2 2 0 0 0 -2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2 -2v-1"
+            />
+            <path
+              d="M20.385 6.585a2.1 2.1 0 0 0 -2.97 -2.97l-8.415 8.385v3h3l8.385 -8.415z"
+            />
+            <path d="M16 5l3 3" />
+          </svg>
+        </button>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+        <div class="p-2">
+          <label for="cedula" class="block text-sm font-normal text-gray-600"
+            >Cédula</label
+          >
+          <div id="cedula" class="rounded-sm border border-gray-100 p-2 mt-1">
+            {{ professionalInformation.cedula }}
+          </div>
+        </div>
+        <div class="p-2">
+          <label
+            for="profession"
+            class="block text-sm font-normal text-gray-600"
+            >Profesión</label
+          >
+          <div
+            id="profession"
+            class="rounded-sm border border-gray-100 p-2 mt-1"
+          >
+            {{ userProfession.descripcion }}
+          </div>
+        </div>
+        <div class="p-2">
+          <label for="names" class="block text-sm font-normal text-gray-600"
+            >Nombres</label
+          >
+          <div id="names" class="rounded-sm border border-gray-100 p-2 mt-1">
+            {{ professionalInformation.nombres }}
+          </div>
+        </div>
+        <div class="p-2">
+          <label for="lastname" class="block text-sm font-normal text-gray-700"
+            >Apellidos</label
+          >
+          <div id="lastname" class="rounded-sm border border-gray-100 p-2 mt-1">
+            {{ professionalInformation.apellidos }}
+          </div>
+        </div>
+        <div class="p-2">
+          <label for="cellphone" class="block text-sm font-normal text-gray-700"
+            >Teléfono</label
+          >
+          <div
+            id="cellphone"
+            class="rounded-sm border border-gray-100 p-2 mt-1"
+          >
+            {{ professionalInformation.telefono }}
+          </div>
+        </div>
+      </div>
+      <!-- <div class="absolute bottom-2 right-4">
+          <button class="bg-blue-500 text-white rounded px-2 py-1 mr-2">
+            Guardar
+          </button>
+          <button class="bg-green-500 text-white rounded px-2 py-1">
+            Editar
+          </button>
+        </div> -->
+    </div>
+    <div
+      class="h-full bg-white rounded-sm p-4 mb-4 border border-gray-200 shadow-md"
+    >
+      <div class="flex justify-between items-center mb-2">
+        <div class="font-bold">Información de la Cuenta</div>
+        <!--  <button>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="icon icon-tabler icon-tabler-edit"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            stroke-width="2"
+            stroke="currentColor"
+            fill="none"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+            <path
+              d="M7 7h-1a2 2 0 0 0 -2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2 -2v-1"
+            />
+            <path
+              d="M20.385 6.585a2.1 2.1 0 0 0 -2.97 -2.97l-8.415 8.385v3h3l8.385 -8.415z"
+            />
+            <path d="M16 5l3 3" />
+          </svg>
+        </button> -->
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+        <div class="p-2">
+          <label for="role" class="block text-sm font-normal text-gray-700"
+            >Rol</label
+          >
+          <div id="role" class="rounded-sm border border-gray-100 p-2 mt-1">
+            {{ professionalInformation.role }}
+          </div>
+        </div>
+        <div class="p-2">
+          <label for="state" class="block text-sm font-normal text-gray-700"
+            >Estado</label
+          >
+          <div id="state" class="rounded-sm border border-gray-100 p-2 mt-1">
+            {{ professionalInformation.state | statusManagement }}
+          </div>
+        </div>
+        <div class="p-2">
+          <label for="user" class="block text-sm font-normal text-gray-700"
+            >Usuario</label
+          >
+          <div
+            id="user"
+            class="flex flex-row gap-2 rounded-sm border border-gray-100 p-2 mt-1 items-center"
+          >
+            {{ professionalInformation.user }}
+            <button
+              class="flex rounded-xl p-1 hover:bg-gray-100"
+              (click)="toggleUserModal()"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="icon icon-tabler icon-tabler-pencil"
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                stroke-width="1.5"
+                stroke="currentColor"
+                fill="none"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                <path
+                  d="M4 20h4l10.5 -10.5a1.5 1.5 0 0 0 -4 -4l-10.5 10.5v4"
+                ></path>
+                <path d="M13.5 6.5l4 4"></path>
+              </svg>
+            </button>
+          </div>
+        </div>
+        <div class="p-2">
+          <label for="password" class="block text-sm font-normal text-gray-700"
+            >Contraseña</label
+          >
+          <div
+            id="password"
+            class="flex flex-row gap-2 rounded-sm border border-gray-100 p-2 mt-1 items-center"
+          >
+            ****************
+            <button
+              class="flex rounded-xl p-1 hover:bg-gray-100"
+              (click)="togglePasswordModal()"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="icon icon-tabler icon-tabler-pencil"
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                stroke-width="1.5"
+                stroke="currentColor"
+                fill="none"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                <path
+                  d="M4 20h4l10.5 -10.5a1.5 1.5 0 0 0 -4 -4l-10.5 10.5v4"
+                ></path>
+                <path d="M13.5 6.5l4 4"></path>
+              </svg>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PERSONAL INFORMATION UPDATE -->
+  <section *ngIf="showPersonalModal">
+    <div
+      class="fixed inset-0 z-50 flex items-center justify-center overflow-x-hidden overflow-y-auto outline-none focus:outline-none"
+    >
+      <div
+        class="relative my-6 mx-auto max-w-[16rem] sm:max-w-sm sm:min-w-[20rem] md:max-w-lg"
+      >
+        <!--content-->
+        <div
+          class="relative flex w-full min-w-[14rem] flex-col rounded overflow-hidden border border-gray-300 border-solid outline-none focus:outline-none"
+        >
+          <form
+            [formGroup]="updatePersonalInfoFrom"
+            autocomplete="off"
+            (ngSubmit)="updatePersonalInformation()"
+          >
+            <!--header-->
+            <div
+              class="flex items-center justify-between px-3 py-2 border-b border-solid border-gray-400 bg-slate-50"
+            >
+              <h3 class="text-xs font-medium uppercase">
+                Información de usuario
+              </h3>
+              <button
+                class="p-2 ml-3 bg-gray-200 border-none rounded-full"
+                (click)="togglePersonalModalClose()"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="icon icon-tabler icon-tabler-x"
+                  width="18"
+                  height="18"
+                  viewBox="0 0 24 24"
+                  stroke-width="1.5"
+                  stroke="currentColor"
+                  fill="none"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                  <path d="M18 6l-12 12"></path>
+                  <path d="M6 6l12 12"></path>
+                </svg>
+              </button>
+            </div>
+            <!--body-->
+            <div
+              class="relative flex-auto px-3 py-2 overflow-y-auto bg-gray-50"
+            >
+              <div class="relative overflow-x-auto min-h-[6rem]">
+                <p class="text-xs uppercase">Campos editables</p>
+                <span
+                  ><small
+                    >Los campos con
+                    <strong class="font-semibold text-blue-500">*</strong> son
+                    obligatorios.</small
+                  ></span
+                >
+                <div class="pt-2">
+                  <div class="">
+                    <label
+                      for="profesion"
+                      class="block text-[10px] uppercase font-medium"
+                      >Profesion
+                      <strong class="font-semibold text-blue-500"
+                        >*</strong
+                      ></label
+                    >
+                    <select
+                      id="profession"
+                      formControlName="profesion"
+                      class="custom-inputs-modalAdd focus:shadow-md text-sm"
+                    >
+                      <option value="" hidden selected disabled></option>
+                      <option
+                        *ngFor="let profession of list_professions"
+                        [value]="profession.id_profesion"
+                      >
+                        {{ profession.descripcion }}
+                      </option>
+                    </select>
+                  </div>
+
+                  <div class="pt-2">
+                    <label
+                      for="telefono"
+                      class="block text-[10px] uppercase font-medium"
+                      >Teléfono
+                      <strong class="font-semibold text-blue-500"
+                        >*</strong
+                      ></label
+                    >
+                    <input
+                      type="text"
+                      id="telefono"
+                      formControlName="telefono"
+                      class="custom-inputs-modalAdd focus:shadow-md"
+                      placeholder="P.ej., 0990000000"
+                      maxlength="12"
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!--footer-->
+            <div
+              class="flex items-center justify-end px-3 py-3 border-t border-solid border-gray-400 bg-slate-50"
+            >
+              <button
+                type="submit"
+                class="text-green-700 hover:text-white border border-green-700 hover:bg-green-800 focus:ring-2 focus:outline-none focus:ring-green-300 font-medium rounded-md text-base px-5 py-1.5 text-center hover:shadow-sm disabled:hover:shadow-none"
+                [disabled]="!canUpdatePersonalInfo"
+              >
+                Aceptar
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    <div
+      *ngIf="showPersonalModal"
+      class="fixed inset-0 z-40 opacity-60 bg-zinc-500"
+    ></div>
+  </section>
+
+  <!-- Password modal -->
+  <section *ngIf="showPasswordModal">
+    <div
+      class="fixed inset-0 z-50 flex items-center justify-center overflow-x-hidden overflow-y-auto outline-none focus:outline-none"
+    >
+      <div
+        class="relative my-6 mx-auto max-w-[16rem] sm:max-w-sm sm:min-w-[20rem] md:max-w-lg"
+      >
+        <!--content-->
+        <div
+          class="relative flex w-full min-w-[14rem] flex-col rounded overflow-hidden border border-gray-400 border-solid outline-none focus:outline-none"
+        >
+          <!--header-->
+          <form autocomplete="off" (ngSubmit)="updateUserPassword()">
+            <div
+              class="flex items-center justify-between px-3 py-2 border-b border-solid border-gray-400 bg-slate-50"
+            >
+              <h3 class="text-xs font-medium uppercase">
+                Configuración de la contraseña
+              </h3>
+              <button
+                class="p-2 ml-3 bg-gray-200 border-none rounded-full"
+                (click)="togglePasswordModalClose()"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="icon icon-tabler icon-tabler-x"
+                  width="18"
+                  height="18"
+                  viewBox="0 0 24 24"
+                  stroke-width="1.5"
+                  stroke="currentColor"
+                  fill="none"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                  <path d="M18 6l-12 12"></path>
+                  <path d="M6 6l12 12"></path>
+                </svg>
+              </button>
+            </div>
+            <!--body-->
+            <div
+              class="relative flex-auto px-3 py-2 overflow-y-auto bg-gray-50"
+            >
+              <div class="relative overflow-x-auto min-h-[6rem]">
+                <span
+                  ><small
+                    >Los campos a continuación es obligatorio.</small
+                  ></span
+                >
+                <div class="pt-2">
+                  <div class="">
+                    <label
+                      for="password"
+                      class="block text-[10px] uppercase font-medium"
+                      >Nueva contraseña
+                      <strong class="font-semibold text-blue-500"
+                        >*</strong
+                      ></label
+                    >
+                    <input
+                      type="text"
+                      id="password"
+                      [(ngModel)]="user_password.password"
+                      name="password"
+                      class="custom-inputs-modalAdd focus:shadow-md"
+                      placeholder="*"
+                      minlength="6"
+                      maxlength="24"
+                    />
+                  </div>
+
+                  <div class="pt-2">
+                    <label
+                      for="passwordRepeat"
+                      class="block text-[10px] uppercase font-medium"
+                      >Repetir nueva contraseña
+                      <strong class="font-semibold text-blue-500"
+                        >*</strong
+                      ></label
+                    >
+                    <input
+                      type="text"
+                      id="passwordRepeat"
+                      [(ngModel)]="passwordRepeat"
+                      name="passwordRepeat"
+                      class="custom-inputs-modalAdd focus:shadow-md"
+                      placeholder="*"
+                      minlength="6"
+                      maxlength="24"
+                      value="{{ passwordRepeat }}"
+                    />
+                  </div>
+                </div>
+                <div class="flex flex-col pt-3">
+                  <small
+                    *ngIf="
+                      user_password.password.length < 8 ||
+                      passwordRepeat.length < 8
+                    "
+                    ><strong class="text-orange-700">*</strong> Caracteres: min
+                    6 - máx 24</small
+                  >
+                  <small *ngIf="user_password.password !== passwordRepeat"
+                    ><strong class="text-orange-700">*</strong> Las contraseñas
+                    no coinciden</small
+                  >
+                </div>
+              </div>
+            </div>
+            <!--footer-->
+            <div
+              class="flex items-center justify-end px-3 py-2 border-t border-solid border-gray-400 bg-gray-50"
+            >
+              <button
+                type="submit"
+                class="text-green-700 hover:text-white border border-green-700 hover:bg-green-800 focus:ring-2 focus:outline-none focus:ring-green-300 font-medium rounded-md text-base px-5 py-1.5 text-center hover:shadow-sm disabled:hover:shadow-none"
+                [disabled]="!canUpdatePassword"
+              >
+                Aceptar
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    <div
+      *ngIf="showPasswordModal"
+      class="fixed inset-0 z-40 opacity-60 bg-zinc-500 dark:bg-zinc-900 dark:opacity-60"
+    ></div>
+  </section>
+
+  <!-- User modal -->
+  <section *ngIf="showUserModal">
+    <div
+      class="fixed inset-0 z-50 flex items-center justify-center overflow-x-hidden overflow-y-auto outline-none focus:outline-none"
+    >
+      <div
+        class="relative my-6 mx-auto max-w-[16rem] sm:max-w-sm sm:min-w-[20rem] md:max-w-lg"
+      >
+        <!--content-->
+        <div
+          class="relative flex w-full min-w-[14rem] flex-col rounded overflow-hidden border border-gray-400 border-solid outline-none focus:outline-none"
+        >
+          <!--header-->
+          <form
+            [formGroup]="updateUserFrom"
+            autocomplete="off"
+            (ngSubmit)="updateUserInfo()"
+          >
+            <div
+              class="flex items-center justify-between px-3 py-2 border-b border-solid border-gray-400 bg-slate-50"
+            >
+              <h3 class="text-xs font-medium uppercase">
+                Configuración de usuario
+              </h3>
+              <button
+                class="p-2 ml-3 bg-gray-200 border-none rounded-full"
+                (click)="toggleUserModalClose()"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="icon icon-tabler icon-tabler-x"
+                  width="18"
+                  height="18"
+                  viewBox="0 0 24 24"
+                  stroke-width="1.5"
+                  stroke="currentColor"
+                  fill="none"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                  <path d="M18 6l-12 12"></path>
+                  <path d="M6 6l12 12"></path>
+                </svg>
+              </button>
+            </div>
+            <!--body-->
+            <div
+              class="relative flex-auto px-3 py-2 overflow-y-auto bg-gray-50"
+            >
+              <div class="relative overflow-x-auto min-h-[6rem]">
+                <span
+                  ><small>El campo a continuación es obligatorio.</small></span
+                >
+                <div class="pt-2">
+                  <div class="">
+                    <label
+                      for="user"
+                      class="block text-[10px] uppercase font-medium"
+                      >Usuario
+                      <strong class="font-semibold text-blue-500"
+                        >*</strong
+                      ></label
+                    >
+                    <input
+                      type="text"
+                      id="user"
+                      formControlName="user"
+                      class="custom-inputs-modalAdd focus:shadow-md"
+                      placeholder="usuario"
+                      minlength="6"
+                      maxlength="24"
+                    />
+                  </div>
+                </div>
+
+                <div class="flex flex-col pt-3">
+                  <small *ngIf="updateUserFrom.get('user')?.value.length < 6"
+                    ><strong class="text-orange-700">*</strong> Caracteres: min
+                    6 - máx 24</small
+                  >
+                </div>
+              </div>
+            </div>
+            <!--footer-->
+            <div
+              class="flex items-center justify-end px-3 py-2 border-t border-solid border-gray-400 bg-slate-50"
+            >
+              <button
+                type="submit"
+                class="text-green-700 hover:text-white border border-green-700 hover:bg-green-800 focus:ring-2 focus:outline-none focus:ring-green-300 font-medium rounded-md text-base px-5 py-1.5 text-center hover:shadow-sm disabled:hover:shadow-none"
+                [disabled]="!canUpdateUser"
+              >
+                Aceptar
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    <div
+      *ngIf="showUserModal"
+      class="fixed inset-0 z-40 opacity-60 bg-zinc-500"
+    ></div>
+  </section>
+</div>

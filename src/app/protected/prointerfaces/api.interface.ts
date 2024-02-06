@@ -1,4 +1,3 @@
-
 export interface Profesional {
   id_profesional: string;
   role: string;

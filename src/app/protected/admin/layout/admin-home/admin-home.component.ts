@@ -9,22 +9,10 @@ import { AuthService } from 'src/app/auth/service/auth.service';
 })
 export class AdminHomeComponent {
   get user_auth_info() {
-    return this.authService.user;
+    return this.authService.currentlyUser();
   }
 
   isExpanded: boolean = false;
-
- /*  @HostListener('mouseenter') onMouseEnter() {
-    if (window.innerWidth < 768) {
-      this.isExpanded = true;
-    }
-  }
-
-  @HostListener('mouseleave') onMouseLeave() {
-    if (window.innerWidth < 768) {
-      this.isExpanded = false;
-    }
-  } */
 
   constructor(private authService: AuthService, private router: Router) {}
 

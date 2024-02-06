@@ -28,4 +28,13 @@ export class InfoEaisService {
 
     return this.http.get<InfoEais[]>(url, { headers });
   }
+
+  searchInfoEaisInApi(term: string): Observable<InfoEais> {
+    const token = `Bearer ${localStorage.getItem('token')}`;
+    const headers = new HttpHeaders().set('Authorization', token || '');
+    const url = `${this.apiUrlInfoEaisService}search/${term}`;
+    console.log(term);
+
+    return this.http.get<InfoEais>(url, { headers });
+  }
 }

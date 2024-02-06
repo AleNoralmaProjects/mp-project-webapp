@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
 import { AdminRoutingModule } from './admin-routing.module';
 import { AdminHomeComponent } from './layout/admin-home/admin-home.component';
 import { ViewMapComponent } from './pages/view-map/view-map.component';
@@ -11,6 +10,9 @@ import { ManageInfoeaisComponent } from './pages/manage-infoeais/manage-infoeais
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ProtectedModule } from '../protected.module';
 import { NgxPaginationModule } from 'ngx-pagination';
+import { SharedModule } from '../shared/shared.module';
+import { AdminProfileComponent } from './pages/admin-profile/admin-profile.component';
+import { NgSelectModule } from '@ng-select/ng-select';
 
 @NgModule({
   declarations: [
@@ -20,6 +22,7 @@ import { NgxPaginationModule } from 'ngx-pagination';
     ManageProfessionalComponent,
     ManageProfessionComponent,
     ManageInfoeaisComponent,
+    AdminProfileComponent
   ],
   imports: [
     CommonModule,
@@ -28,6 +31,8 @@ import { NgxPaginationModule } from 'ngx-pagination';
     ReactiveFormsModule,
     ProtectedModule,
     NgxPaginationModule,
+    SharedModule,
+    NgSelectModule
   ],
 })
 export class AdminModule {}

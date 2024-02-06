@@ -55,6 +55,16 @@ export class ProfessionalService {
     });
   }
 
+  updatePasswordInApi(term: string, password: any): Observable<Profesional> {
+    const token = `Bearer ${localStorage.getItem('token')}`;
+    const headers = new HttpHeaders().set('Authorization', token || '');
+    const updateProfesionalUrl = `${this.apiUrlProfessionalService}update-password/${term}`;
+
+    return this.http.patch<Profesional>(updateProfesionalUrl, password, {
+      headers,
+    });
+  }
+
   showActiveProfessionalinApi(): Observable<Profesional[]> {
     const token = `Bearer ${localStorage.getItem('token')}`;
     const headers = new HttpHeaders().set('Authorization', token || '');
@@ -69,5 +79,13 @@ export class ProfessionalService {
     const url = `${this.apiUrlProfessionalService}search/${id}`;
 
     return this.http.get<Profesional>(url, { headers });
+  }
+
+  verifyProfessionalUser(term: string) {
+    const token = `Bearer ${localStorage.getItem('token')}`;
+    const headers = new HttpHeaders().set('Authorization', token || '');
+    const url = `${this.apiUrlProfessionalService}user-verify/${term}`;
+
+    return this.http.get(url, { headers });
   }
 }

@@ -42,7 +42,7 @@
             role="form"
             autocomplete="off"
             [formGroup]="myLoginForm"
-            (ngSubmit)="loginValidation()"
+            (ngSubmit)="login()"
           >
             <div class="flex flex-col gap-5">
               <div class="flex flex-col gap-2">
@@ -52,8 +52,8 @@
                 <input
                   id="user"
                   type="text"
-                  placeholder="@example"
-                  class="px-2 py-1.5 border-2 border-gray-200 rounded-b-lg border-collapse focus:border-blue-400 focus:outline-none disabled:opacity-50 text-lg"
+                  placeholder="Usuario"
+                  class="px-2 py-1.5 border-2 border-gray-200 rounded-b-lg border-collapse focus:border-blue-400 focus:outline-none disabled:opacity-50 text-base"
                   formControlName="user"
                   aria-label="Username"
                   aria-describedby="addon-wrapping"
@@ -66,8 +66,8 @@
                 <input
                   id="password"
                   type="password"
-                  placeholder="***************"
-                  class="px-2 py-1.5 border-2 border-gray-200 rounded-b-lg border-collapse focus:border-blue-400 focus:outline-none disabled:opacity-25 text-lg"
+                  placeholder="Contraseña"
+                  class="px-2 py-1.5 border-2 border-gray-200 rounded-b-lg border-collapse focus:border-blue-400 focus:outline-none disabled:opacity-25 text-base"
                   formControlName="password"
                   aria-label="Password"
                   aria-describedby="addon-wrapping"
