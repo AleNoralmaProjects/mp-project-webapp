@@ -33,7 +33,6 @@ export class InfoEaisService {
     const token = `Bearer ${localStorage.getItem('token')}`;
     const headers = new HttpHeaders().set('Authorization', token || '');
     const url = `${this.apiUrlInfoEaisService}search/${term}`;
-    console.log(term);
 
     return this.http.get<InfoEais>(url, { headers });
   }

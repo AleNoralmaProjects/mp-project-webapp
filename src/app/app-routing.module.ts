@@ -8,14 +8,14 @@ import { loadModuleGuard } from './auth/guards/loadModule.guard';
 const routes: Routes = [
   {
     path: 'auth',
-    /* canActivate: [isNonAuthenticationGuard], */
+    canActivate: [isNonAuthenticationGuard],
     loadChildren: () =>
       import('./auth/auth.module').then((module) => module.AuthModule),
   },
   {
     path: 'protectedroute',
-    /* canActivate: [isAuthenticationGuard],
-    canMatch: [loadModuleGuard], */
+    canActivate: [isAuthenticationGuard],
+    canMatch: [loadModuleGuard],
     loadChildren: () =>
       import('./protected/protected.module').then((m) => m.ProtectedModule),
   },

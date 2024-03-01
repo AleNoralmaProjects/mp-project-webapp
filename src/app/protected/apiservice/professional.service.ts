@@ -81,6 +81,14 @@ export class ProfessionalService {
     return this.http.get<Profesional>(url, { headers });
   }
 
+  shearchProfessionalBrigadaEaisEnable(id: string): Observable<Profesional> {
+    const token = `Bearer ${localStorage.getItem('token')}`;
+    const headers = new HttpHeaders().set('Authorization', token || '');
+    const url = `${this.apiUrlProfessionalService}searchEaisEnable/${id}`;
+
+    return this.http.get<Profesional>(url, { headers });
+  }
+
   verifyProfessionalUser(term: string) {
     const token = `Bearer ${localStorage.getItem('token')}`;
     const headers = new HttpHeaders().set('Authorization', token || '');

@@ -10,6 +10,7 @@ export class FichaFamiliarService {
   getLocation(
     year?: any,
     age?: any,
+    gender?: any,
     rbiological?: any,
     renvironmental?: any,
     rsocioeconomic?: any,
@@ -21,6 +22,7 @@ export class FichaFamiliarService {
     Despues de los : significa que va el else  */
     !year ? (year = '') : 0;
     !age ? (age = '') : 0;
+    !gender ? (gender = '') : 0;
     !rbiological ? (rbiological = '') : 0;
     !renvironmental ? (renvironmental = '') : 0;
     !rsocioeconomic ? (rsocioeconomic = '') : 0;
@@ -30,7 +32,7 @@ export class FichaFamiliarService {
     return new Promise(async (result, refused) => {
       await this._poolService
         .get(
-          `ficha-familiar/location?year=${year}&age=${age}&rbiological=${rbiological}&renvironmental=${renvironmental}&rsocioeconomic=${rsocioeconomic}&gpriority=${gpriority}&gvulnerable=${gvulnerable}`
+          `ficha-familiar/location?year=${year}&age=${age}&gender=${gender}&rbiological=${rbiological}&renvironmental=${renvironmental}&rsocioeconomic=${rsocioeconomic}&gpriority=${gpriority}&gvulnerable=${gvulnerable}`
         )
         .subscribe(
           (data) => {
@@ -61,9 +63,8 @@ export class FichaFamiliarService {
       await this._poolService
         .get(`ficha-familiar/searchId?${cedula}`)
         .subscribe(
-          (data) => {
-            console.log('data=', data);
-            result(data);
+          (datac) => {
+            result(datac);
           },
           (error) => {
             refused(error);
@@ -79,7 +80,177 @@ export class FichaFamiliarService {
         .get(`ficha-familiar/pregnats?year=${year}`)
         .subscribe(
           (data) => {
-            console.log('data=', data);
+            result(data);
+          },
+          (error) => {
+            refused(error);
+          }
+        );
+    });
+  }
+
+  getLocationPregnats(type: number): Promise<any> {
+    return new Promise(async (result, refused) => {
+      await this._poolService
+        .get(`ficha-familiar/risk-pregnats/${type}`)
+        .subscribe(
+          (data) => {
+            result(data);
+          },
+          (error) => {
+            refused(error);
+          }
+        );
+    });
+  }
+
+  getObesityChildren(year?: string): Promise<any> {
+    !year ? (year = '') : 0;
+    return new Promise(async (result, refused) => {
+      await this._poolService
+        .get(`ficha-familiar/obesity-children?year=${year}`)
+        .subscribe(
+          (data) => {
+            result(data);
+          },
+          (error) => {
+            refused(error);
+          }
+        );
+    });
+  }
+
+  getLocationObesity(type: boolean): Promise<any> {
+    return new Promise(async (result, refused) => {
+      await this._poolService
+        .get(`ficha-familiar/risk-obesity/${type}`)
+        .subscribe(
+          (data) => {
+            result(data);
+          },
+          (error) => {
+            refused(error);
+          }
+        );
+    });
+  }
+
+  getMalnutritionChildren(year?: string): Promise<any> {
+    !year ? (year = '') : 0;
+    return new Promise(async (result, refused) => {
+      await this._poolService
+        .get(`ficha-familiar/malnutrition-children?year=${year}`)
+        .subscribe(
+          (data) => {
+            result(data);
+          },
+          (error) => {
+            refused(error);
+          }
+        );
+    });
+  }
+
+  getLocationMalnutrition(type: number): Promise<any> {
+    return new Promise(async (result, refused) => {
+      await this._poolService
+        .get(`ficha-familiar/risk-malnutrition/${type}`)
+        .subscribe(
+          (data) => {
+            result(data);
+          },
+          (error) => {
+            refused(error);
+          }
+        );
+    });
+  }
+
+  getDisability(year?: string): Promise<any> {
+    !year ? (year = '') : 0;
+    return new Promise(async (result, refused) => {
+      await this._poolService
+        .get(`ficha-familiar/disability?year=${year}`)
+        .subscribe(
+          (data) => {
+            result(data);
+          },
+          (error) => {
+            refused(error);
+          }
+        );
+    });
+  }
+
+  getLocationDisability(type: string): Promise<any> {
+    return new Promise(async (result, refused) => {
+      await this._poolService
+        .get(`ficha-familiar/risk-disability/${type}`)
+        .subscribe(
+          (data) => {
+            result(data);
+          },
+          (error) => {
+            refused(error);
+          }
+        );
+    });
+  }
+
+  getDiseases(year?: string): Promise<any> {
+    !year ? (year = '') : 0;
+    return new Promise(async (result, refused) => {
+      await this._poolService
+        .get(`ficha-familiar/diseases?year=${year}`)
+        .subscribe(
+          (data) => {
+            result(data);
+          },
+          (error) => {
+            refused(error);
+          }
+        );
+    });
+  }
+
+  getLocationDiseases(type: string, type2?: string): Promise<any> {
+    !type2 ? (type2 = '') : 0;
+    return new Promise(async (result, refused) => {
+      await this._poolService
+        .get(`ficha-familiar/risk-diseases/${type}?typeds2=${type2}`)
+        .subscribe(
+          (data) => {
+            result(data);
+          },
+          (error) => {
+            refused(error);
+          }
+        );
+    });
+  }
+
+  getPersonPrior(year?: string): Promise<any> {
+    !year ? (year = '') : 0;
+    return new Promise(async (result, refused) => {
+      await this._poolService
+        .get(`ficha-familiar/personprior?year=${year}`)
+        .subscribe(
+          (data) => {
+            result(data);
+          },
+          (error) => {
+            refused(error);
+          }
+        );
+    });
+  }
+
+  getLocationPersonPrior(type: string): Promise<any> {
+    return new Promise(async (result, refused) => {
+      await this._poolService
+        .get(`ficha-familiar/risk-personprior/${type}`)
+        .subscribe(
+          (data) => {
             result(data);
           },
           (error) => {

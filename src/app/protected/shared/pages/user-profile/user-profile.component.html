@@ -5,7 +5,7 @@
     <div class="flex flex-row items-center justify-between h-full p-4">
       <div class="flex flex-row">
         <div
-          class="flex items-center justify-center bg-gray-50 rounded-full border-solid w-[90px] h-[90px]"
+          class="hidden items-center justify-center bg-gray-50 rounded-full border-solid w-[90px] h-[90px] md:flex"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -33,6 +33,9 @@
           </div>
           <div class="p-1">
             {{ professionalInformation.role }}
+          </div>
+          <div class="p-1 font-medium">
+            {{ activeBrigadeEaisInfo?.eais?.cod_eais }}
           </div>
         </div>
       </div>
@@ -126,43 +129,12 @@
           </div>
         </div>
       </div>
-      <!-- <div class="absolute bottom-2 right-4">
-          <button class="bg-blue-500 text-white rounded px-2 py-1 mr-2">
-            Guardar
-          </button>
-          <button class="bg-green-500 text-white rounded px-2 py-1">
-            Editar
-          </button>
-        </div> -->
     </div>
     <div
       class="h-full bg-white rounded-sm p-4 mb-4 border border-gray-200 shadow-md"
     >
       <div class="flex justify-between items-center mb-2">
         <div class="font-bold">Información de la Cuenta</div>
-        <!--  <button>
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            class="icon icon-tabler icon-tabler-edit"
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            stroke-width="2"
-            stroke="currentColor"
-            fill="none"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-          >
-            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-            <path
-              d="M7 7h-1a2 2 0 0 0 -2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2 -2v-1"
-            />
-            <path
-              d="M20.385 6.585a2.1 2.1 0 0 0 -2.97 -2.97l-8.415 8.385v3h3l8.385 -8.415z"
-            />
-            <path d="M16 5l3 3" />
-          </svg>
-        </button> -->
       </div>
 
       <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">

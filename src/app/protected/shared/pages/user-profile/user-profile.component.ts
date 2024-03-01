@@ -2,6 +2,7 @@ import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/auth/service/auth.service';
 import { ProfessionalService } from 'src/app/protected/apiservice/professional.service';
 import {
+  BrigadaEAIS,
   Profesion,
   Profesional,
 } from 'src/app/protected/prointerfaces/api.interface';
@@ -21,6 +22,9 @@ export class UserProfileComponent implements OnInit {
 
   userProfession: Profesion = Object.create([]);
   professionalInformation: Profesional = Object.create([]);
+
+  activeBrigadeEaisInfo: BrigadaEAIS | undefined = undefined;
+  professionalEais: BrigadaEAIS[] = [];
 
   user_password = {
     password: '',
@@ -60,14 +64,19 @@ export class UserProfileComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    console.log(this.user_auth_info);
     if (this.user_auth_info?.id_Profesional) {
       this.professionalService
         .shearchProfessionalinApi(this.user_auth_info.id_Profesional)
         .subscribe({
           next: (response) => {
-            console.log(response);
             this.professionalInformation = response;
+
+            this.professionalEais = response.brigadaEai;
+            this.getActiveEAIS(this.professionalEais);
+            if (this.activeBrigadeEaisInfo) {
+              this.activeBrigadeEaisInfo!.eais.cod_eais;
+            }
+
             this.userProfession = response.profesion;
             this.updatePersonalInfoFrom
               .get('profesion')
@@ -80,10 +89,21 @@ export class UserProfileComponent implements OnInit {
               ?.setValue(this.professionalInformation.user);
           },
           error: (err) => {
-            console.log(err.error);
+            Report.failure(
+              'Algo ha salido mal',
+              `Detalles: ${err.error.message}.`,
+              'Volver'
+            );
           },
         });
     }
+  }
+
+  /* METODO PARA CONTROLAR BRIGADE por MAP  */
+  getActiveEAIS(brigades: BrigadaEAIS[]) {
+    this.activeBrigadeEaisInfo = brigades.find(
+      (brigade) => brigade.state === true
+    );
   }
 
   toggleUserModal() {
@@ -160,7 +180,6 @@ export class UserProfileComponent implements OnInit {
         'Confirmar',
         'Cancelar',
         () => {
-          console.log(this.user_password.password);
           this.professionalService
             .updatePasswordInApi(
               this.user_auth_info!.id_Profesional,
@@ -191,7 +210,7 @@ export class UserProfileComponent implements OnInit {
 
   updateUserInfo() {
     const newUserValue: string = this.updateUserFrom.get('user')?.value;
-    /* console.log(newNicknameValue); */
+
     this.professionalService.verifyProfessionalUser(newUserValue).subscribe({
       next: (response) => {
         Confirm.show(
@@ -269,11 +288,14 @@ export class UserProfileComponent implements OnInit {
   showAllProfession() {
     this.professionService.showProfessionInApi().subscribe({
       next: (respuesta) => {
-        console.log(respuesta);
         this.list_professions = respuesta;
       },
       error: (err) => {
-        console.log(err.error.message);
+        Report.failure(
+          'Algo ha salido mal',
+          `Detalles: ${err.error.message}.`,
+          'Volver'
+        );
       },
     });
   }

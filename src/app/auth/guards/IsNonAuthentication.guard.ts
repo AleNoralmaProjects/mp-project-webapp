@@ -7,7 +7,6 @@ export const isNonAuthenticationGuard: CanActivateFn = (route, state) => {
   const authService = inject(AuthService);
   const router = inject(Router);
   if (authService.authStatus() === AuthStatus.authentication) {
-    console.log(authService.currentlyUser()?.role);
     switch (authService.currentlyUser()?.role) {
       case 'ADMINISTRADOR':
         router.navigateByUrl('/protectedroute/administrador/pages/home');

@@ -3,32 +3,28 @@
     <div
       class="h-full w-full bg-[url('assets/images/WorldMap.svg')] bg-cover bg-no-repeat bg-center"
     >
-      <div class="flex flex-col items-center justify-center h-full w-full">
+      <div
+        class="flex flex-col items-center justify-center h-full w-full gap-2"
+      >
         <div
           class="flex flex-col gap-3 p-5 bg-white rounded-md shadow-2xl w-64 md:w-80"
         >
-          <!--  <div class="flex flex-row gap-2 justify-center items-end">
-            <div class="">
-              <img
-                src="../../../assets/images/Ecuadora.svg"
-                alt=""
-                srcset=""
-                class="w-8 h-8"
-              />
-            </div>
+          <div class="flex flex-row gap-2 items-center justify-center">
+            <img src="../../../assets/images/msp_images.png" alt="" />
+          </div>
+        </div>
 
-            <div class="flex items-end h-8">
-              <span
-                class="text-xl font-bold text-center tracking-wide md:text-[23px] "
-                >MAPA PARLANTE</span
-              >
-            </div>
-          </div> -->
+        <div
+          class="flex flex-col gap-3 p-5 bg-white rounded-md shadow-2xl w-64 md:w-80"
+        >
+          <!-- <div class="flex flex-row gap-2 items-center justify-center">
+          <img src="../../../assets/images/msp_images.png" alt="" />
+        </div> -->
           <div class="flex flex-row gap-2 items-end justify-center">
             <img
               src="../../../assets/images/EcuadorLogo.svg"
               alt=""
-              class="w-12"
+              class="w-8"
             />
             <span class="inset-0 font-bold tracking-wide text-lg"
               >MAPA PARLANTE</span
@@ -74,9 +70,10 @@
                 />
               </div>
               <span
+                (click)="showMessage()"
                 class="text-[14px] font-normal text-blue-600 cursor-pointer text-start hover:underline"
-                >Olvidé mi contraseña</span
-              >
+                >Olvidé mi contraseña
+              </span>
 
               <button
                 type="submit"

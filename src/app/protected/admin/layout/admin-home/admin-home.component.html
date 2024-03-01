@@ -93,6 +93,38 @@
         </div>
         <div
           class="flex flex-row gap-3 text-[16px] tracking-wide transition-shadow px-2 py-2 hover:bg-gray-800 cursor-pointer group hover:font-semibold rounded-lg"
+          [routerLink]="['routes']"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="icon icon-tabler icon-tabler-map-route"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            stroke-width="1.5"
+            stroke="currentColor"
+            fill="none"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            routerLinkActive="text-blue-400"
+          >
+            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+            <path d="M3 7l6 -3l6 3l6 -3v13l-6 3l-6 -3l-6 3v-13" />
+            <path d="M9 12v.01" />
+            <path d="M6 13v.01" />
+            <path d="M17 15l-4 -4" />
+            <path d="M13 15l4 -4" />
+          </svg>
+          <span
+            class="relative flex flex-row gap-2 items-center"
+            routerLinkActive="  text-blue-400 font-semibold uppercase "
+            [class.hidden]="!isExpanded"
+          >
+            Rutas
+          </span>
+        </div>
+        <div
+          class="flex flex-row gap-3 text-[16px] tracking-wide transition-shadow px-2 py-2 hover:bg-gray-800 cursor-pointer group hover:font-semibold rounded-lg"
           [routerLink]="['brigada-eais']"
         >
           <svg
@@ -125,6 +157,39 @@
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
+            class="icon icon-tabler icon-tabler-users-plus"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            stroke-width="1.5"
+            stroke="currentColor"
+            fill="none"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            routerLinkActive="text-blue-400 "
+          >
+            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+            <path d="M5 7a4 4 0 1 0 8 0a4 4 0 0 0 -8 0" />
+            <path d="M3 21v-2a4 4 0 0 1 4 -4h4c.96 0 1.84 .338 2.53 .901" />
+            <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+            <path d="M16 19h6" />
+            <path d="M19 16v6" />
+          </svg>
+
+          <span
+            class="relative flex flex-row gap-2 items-center"
+            routerLinkActive="  text-blue-400 font-semibold uppercase "
+            [class.hidden]="!isExpanded"
+          >
+            Gestionar Profesional</span
+          >
+        </div>
+        <div
+          class="flex flex-row gap-3 text-[16px] tracking-wide transition-shadow px-2 py-2 hover:bg-gray-800 cursor-pointer group hover:font-semibold rounded-lg"
+          [routerLink]="['manage-profession']"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 24 24"
             fill="currentColor"
             class="h-6 w-6"
@@ -141,39 +206,6 @@
             routerLinkActive="  text-blue-400 font-semibold uppercase "
             [class.hidden]="!isExpanded"
           >
-            Gestionar Profesional</span
-          >
-        </div>
-        <div
-          class="flex flex-row gap-3 text-[16px] tracking-wide transition-shadow px-2 py-2 hover:bg-gray-800 cursor-pointer group hover:font-semibold rounded-lg"
-          [routerLink]="['manage-profession']"
-        >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            class="icon icon-tabler icon-tabler-briefcase"
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            stroke-width="2"
-            stroke="currentColor"
-            fill="none"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            routerLinkActive="text-blue-400 "
-          >
-            <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-            <path
-              d="M3 7m0 2a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v9a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2z"
-            ></path>
-            <path d="M8 7v-2a2 2 0 0 1 2 -2h4a2 2 0 0 1 2 2v2"></path>
-            <path d="M12 12l0 .01"></path>
-            <path d="M3 13a20 20 0 0 0 18 0"></path>
-          </svg>
-          <span
-            class="relative flex flex-row gap-2 items-center"
-            routerLinkActive="  text-blue-400 font-semibold uppercase "
-            [class.hidden]="!isExpanded"
-          >
             Gestionar Profesión</span
           >
         </div>
@@ -183,17 +215,25 @@
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
+            class="icon icon-tabler icon-tabler-map-plus"
+            width="24"
+            height="24"
             viewBox="0 0 24 24"
-            fill="currentColor"
-            class="h-6 w-6"
+            stroke-width="1.5"
+            stroke="currentColor"
+            fill="none"
+            stroke-linecap="round"
+            stroke-linejoin="round"
             routerLinkActive="text-blue-400 "
           >
-            <path
-              fill-rule="evenodd"
-              d="M11.54 22.351l.07.04.028.016a.76.76 0 00.723 0l.028-.015.071-.041a16.975 16.975 0 001.144-.742 19.58 19.58 0 002.683-2.282c1.944-1.99 3.963-4.98 3.963-8.827a8.25 8.25 0 00-16.5 0c0 3.846 2.02 6.837 3.963 8.827a19.58 19.58 0 002.682 2.282 16.975 16.975 0 001.145.742zM12 13.5a3 3 0 100-6 3 3 0 000 6z"
-              clip-rule="evenodd"
-            />
+            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+            <path d="M12 18.5l-3 -1.5l-6 3v-13l6 -3l6 3l6 -3v8.5" />
+            <path d="M9 4v13" />
+            <path d="M15 7v8" />
+            <path d="M16 19h6" />
+            <path d="M19 16v6" />
           </svg>
+
           <span
             class="relative flex flex-row gap-2 items-center"
             routerLinkActive="  text-blue-400 font-semibold uppercase "
@@ -227,6 +267,8 @@
         >
           CONFIGURACIÓN
         </p>
+      </div>
+      <div class="flex flex-col justify-center px-0">
         <div
           class="flex flex-row gap-3 text-[16px] tracking-wide transition-shadow px-2 py-2 hover:bg-gray-800 cursor-pointer group hover:font-semibold rounded-lg"
           [routerLink]="['admin-profile']"
@@ -235,7 +277,8 @@
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 24 24"
             fill="currentColor"
-            class="h-6 w-6"
+            class="h-7 w-7"
+            routerLinkActive="text-blue-400"
           >
             <path
               fill-rule="evenodd"
@@ -251,8 +294,6 @@
             Perfil de Usuario</span
           >
         </div>
-      </div>
-      <div class="flex flex-col justify-center px-0">
         <div
           class="flex flex-row gap-3 text-[16px] tracking-wide transition-shadow px-2 py-2 hover:bg-gray-800 cursor-pointer group hover:font-semibold rounded-lg"
           (click)="closeSesion()"
@@ -344,6 +385,38 @@
         </div>
         <div
           class="flex flex-row gap-3 text-[16px] tracking-wide transition-shadow px-0.5 py-2 hover:bg-gray-800 cursor-pointer group hover:font-semibold rounded-lg"
+          [routerLink]="['routes']"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="icon icon-tabler icon-tabler-map-route"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            stroke-width="1.5"
+            stroke="currentColor"
+            fill="none"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            routerLinkActive="text-blue-400"
+          >
+            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+            <path d="M3 7l6 -3l6 3l6 -3v13l-6 3l-6 -3l-6 3v-13" />
+            <path d="M9 12v.01" />
+            <path d="M6 13v.01" />
+            <path d="M17 15l-4 -4" />
+            <path d="M13 15l4 -4" />
+          </svg>
+          <span
+            class="relative flex flex-row gap-2 items-center"
+            routerLinkActive="  text-blue-400 font-semibold uppercase "
+            [class.hidden]="!isExpanded"
+          >
+            Rutas
+          </span>
+        </div>
+        <div
+          class="flex flex-row gap-3 text-[16px] tracking-wide transition-shadow px-0.5 py-2 hover:bg-gray-800 cursor-pointer group hover:font-semibold rounded-lg"
           [routerLink]="['brigada-eais']"
         >
           <svg
@@ -376,6 +449,39 @@
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
+            class="icon icon-tabler icon-tabler-users-plus"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            stroke-width="1.5"
+            stroke="currentColor"
+            fill="none"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            routerLinkActive="text-blue-400 "
+          >
+            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+            <path d="M5 7a4 4 0 1 0 8 0a4 4 0 0 0 -8 0" />
+            <path d="M3 21v-2a4 4 0 0 1 4 -4h4c.96 0 1.84 .338 2.53 .901" />
+            <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+            <path d="M16 19h6" />
+            <path d="M19 16v6" />
+          </svg>
+
+          <span
+            class="relative flex flex-row gap-2 items-center"
+            routerLinkActive="  text-blue-400 font-semibold uppercase "
+            [class.hidden]="!isExpanded"
+          >
+            Gestionar Profesional</span
+          >
+        </div>
+        <div
+          class="flex flex-row gap-3 text-[16px] tracking-wide transition-shadow px-0.5 py-2 hover:bg-gray-800 cursor-pointer group hover:font-semibold rounded-lg"
+          [routerLink]="['manage-profession']"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 24 24"
             fill="currentColor"
             class="h-6 w-6"
@@ -392,39 +498,6 @@
             routerLinkActive="  text-blue-400 font-semibold uppercase "
             [class.hidden]="!isExpanded"
           >
-            Gestionar Profesional</span
-          >
-        </div>
-        <div
-          class="flex flex-row gap-3 text-[16px] tracking-wide transition-shadow px-0.5 py-2 hover:bg-gray-800 cursor-pointer group hover:font-semibold rounded-lg"
-          [routerLink]="['manage-profession']"
-        >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            class="icon icon-tabler icon-tabler-briefcase"
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            stroke-width="2"
-            stroke="currentColor"
-            fill="none"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            routerLinkActive="text-blue-400 "
-          >
-            <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-            <path
-              d="M3 7m0 2a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v9a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2z"
-            ></path>
-            <path d="M8 7v-2a2 2 0 0 1 2 -2h4a2 2 0 0 1 2 2v2"></path>
-            <path d="M12 12l0 .01"></path>
-            <path d="M3 13a20 20 0 0 0 18 0"></path>
-          </svg>
-          <span
-            class="relative flex flex-row gap-2 items-center"
-            routerLinkActive="  text-blue-400 font-semibold uppercase "
-            [class.hidden]="!isExpanded"
-          >
             Gestionar Profesión</span
           >
         </div>
@@ -434,16 +507,23 @@
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
+            class="icon icon-tabler icon-tabler-map-plus"
+            width="24"
+            height="24"
             viewBox="0 0 24 24"
-            fill="currentColor"
-            class="h-6 w-6"
+            stroke-width="1.5"
+            stroke="currentColor"
+            fill="none"
+            stroke-linecap="round"
+            stroke-linejoin="round"
             routerLinkActive="text-blue-400 "
           >
-            <path
-              fill-rule="evenodd"
-              d="M11.54 22.351l.07.04.028.016a.76.76 0 00.723 0l.028-.015.071-.041a16.975 16.975 0 001.144-.742 19.58 19.58 0 002.683-2.282c1.944-1.99 3.963-4.98 3.963-8.827a8.25 8.25 0 00-16.5 0c0 3.846 2.02 6.837 3.963 8.827a19.58 19.58 0 002.682 2.282 16.975 16.975 0 001.145.742zM12 13.5a3 3 0 100-6 3 3 0 000 6z"
-              clip-rule="evenodd"
-            />
+            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+            <path d="M12 18.5l-3 -1.5l-6 3v-13l6 -3l6 3l6 -3v8.5" />
+            <path d="M9 4v13" />
+            <path d="M15 7v8" />
+            <path d="M16 19h6" />
+            <path d="M19 16v6" />
           </svg>
           <span
             class="relative flex flex-row gap-2 items-center"
@@ -467,7 +547,8 @@
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 24 24"
             fill="currentColor"
-            class="h-6 w-6"
+            class="h-7 w-7"
+            routerLinkActive="text-blue-400"
           >
             <path
               fill-rule="evenodd"

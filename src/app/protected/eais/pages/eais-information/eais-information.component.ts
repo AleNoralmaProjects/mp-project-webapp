@@ -36,6 +36,8 @@ import {
 import { InfoEaisService } from 'src/app/protected/apiservice/info-eais.service';
 import { UtilService } from 'src/app/sevices/util.service';
 import { ToastrService } from 'ngx-toastr';
+import { Loading, Report } from 'notiflix';
+import { NgSelectConfig } from '@ng-select/ng-select';
 
 @Component({
   selector: 'app-eais-information',
@@ -47,11 +49,26 @@ export class EaisInformationComponent implements OnInit {
     return this.authService.currentlyUser();
   }
 
-  /* FILTER CEDULA */
+  /* INDICADORES */
   cedula: any;
-
-  /* INDICADOR PREGNAT */
+  view_pregntas = false;
   pregnats: any;
+  obesity: any;
+  disability: any;
+  diseases: any;
+  malnutrition: any;
+  personprior: any;
+
+  //TODO: variables para almacenar tipo de riesgo
+  type_pregnats = 0;
+  type_obesity: boolean | undefined;
+  type_malnutrition = 0;
+  type_disability = '';
+  type_diseases = 0;
+  type_personprior = '';
+
+  view_button = 'Ver fichas';
+  view = false;
 
   /* VARIABLE DE EJEMPLO SHOW PAC  */
   @ViewChild('popup') popupContainer!: ElementRef;
@@ -76,8 +93,14 @@ export class EaisInformationComponent implements OnInit {
   eaisER15: number[] = [-78.608949, -1.729919];
 
   /* FIXME: ARRAY PARA EDADES PARA NG SELECT PARA FILTROS */
-  array_ages: any = [];
+
+  gender = [
+    { value: 'MASCULINO', label: 'Masculino' },
+    { value: 'FEMENINO', label: 'Femenino' },
+  ];
+
   array_years: any = [];
+  array_ages: any = [];
   array_rbiologicals: any = [];
   array_renvironmentals: any = [];
   array_rsocioeconomics: any = [];
@@ -87,20 +110,12 @@ export class EaisInformationComponent implements OnInit {
   /* VARIABLES PARA ALMACENAR DATOS DE SELECT */
   select_year: any;
   select_age: any;
+  select_gender: any = [];
   select_rbiological: any;
   select_renvironmental: any;
   select_socioeconomic: any;
   select_gpriority: any;
   select_gvulnerable: any;
-
-  constructor(
-    private _fichaFamiliarService: FichaFamiliarService,
-    private authService: AuthService,
-    private professionalService: ProfessionalService,
-    private infoEaisService: InfoEaisService,
-    private _utilService: UtilService,
-    private _toastr: ToastrService
-  ) {}
 
   /* ----------------------------------- */
   overlay!: Overlay;
@@ -143,7 +158,6 @@ export class EaisInformationComponent implements OnInit {
   } as GroupLayerOptions);
 
   map = new Map({
-    target: 'map',
     layers: [this.baseMaps, this.overLays],
   });
 
@@ -152,35 +166,64 @@ export class EaisInformationComponent implements OnInit {
     groupSelectStyle: 'group',
   });
 
-  async ngOnInit() {
+  constructor(
+    private _fichaFamiliarService: FichaFamiliarService,
+    private authService: AuthService,
+    private professionalService: ProfessionalService,
+    private infoEaisService: InfoEaisService,
+    private _utilService: UtilService,
+    private _toastr: ToastrService,
+    private ngSelectConfig: NgSelectConfig
+  ) {
+    ngSelectConfig.appendTo = 'body';
+  }
+
+  ngOnInit() {
+    Loading.dots();
+    for (let index = 2000; index <= 2100; index++) {
+      this.array_years.push({ value: index, label: `${index} ` });
+    }
+    for (let index = 0; index <= 115; index++) {
+      this.array_ages.push({ value: index, label: `${index} ` });
+    }
+
     if (this.user_auth_info?.id_Profesional) {
       this.professionalService
         .shearchProfessionalinApi(this.user_auth_info.id_Profesional)
         .subscribe({
           next: (response) => {
             this.professionalInformation = response;
-            console.log(this.professionalInformation);
+
             this.professionalEais = response.brigadaEai;
-            console.log(this.professionalEais);
+
             this.getActiveEAIS(this.professionalEais);
-            console.log(this.activeBrigadeEaisInfo);
-            console.log(this.activeBrigadeEaisInfo!.eais.cod_eais);
-            this.matchProfessionalToMap(
-              this.activeBrigadeEaisInfo!.eais.cod_eais
-            );
+            if (this.activeBrigadeEaisInfo) {
+              this.matchProfessionalToMap(
+                this.activeBrigadeEaisInfo!.eais.cod_eais
+              );
+              this.loadDataToShow();
+            } else {
+              Report.failure(
+                'NO DISPONIBLE',
+                'Lo sentimos, usted no tiene una Brigada EAIS asignada para cargar la data, comuníquese con el administrador.',
+                'Volver'
+              );
+            }
           },
           error: (err) => {
-            console.log(err.error);
+            Report.failure(
+              'Algo ha salido mal',
+              `Detalles: ${err.error.message}.`,
+              'Volver'
+            );
           },
         });
     }
 
-    for (let index = 2000; index <= 2100; index++) {
-      this.array_years.push({ value: index, label: `${index} ` });
-    }
-    for (let index = 1; index <= 100; index++) {
-      this.array_ages.push({ value: index, label: `${index} ` });
-    }
+    Loading.remove();
+  }
+
+  async loadDataToShow() {
     const data = await this._fichaFamiliarService.getCategories();
 
     this.array_rbiologicals = data.risk_biological;
@@ -190,12 +233,27 @@ export class EaisInformationComponent implements OnInit {
     this.array_gvulnerables = data.group_vulnerable;
 
     this.coordinates = await this._fichaFamiliarService.getLocation();
-    console.log(this.coordinates);
+
     this.drawMap();
 
     /* PREGNTA */
     this.pregnats = await this._fichaFamiliarService.getPregnats();
-    console.log(this.pregnats);
+
+    /* OBESITY */
+    this.obesity = await this._fichaFamiliarService.getObesityChildren();
+
+    /* MALNUTRITION */
+    this.malnutrition =
+      await this._fichaFamiliarService.getMalnutritionChildren();
+
+    /* DISCAPACIDADES */
+    this.disability = await this._fichaFamiliarService.getDisability();
+
+    /* ENFERMEDADES */
+    this.diseases = await this._fichaFamiliarService.getDiseases();
+
+    /* PERSONAS EN EL GRUPO PRIORITARIO */
+    this.personprior = await this._fichaFamiliarService.getPersonPrior();
   }
 
   /* METODO PARA CONTROLAR BRIGADE por MAP  */
@@ -203,22 +261,7 @@ export class EaisInformationComponent implements OnInit {
     this.activeBrigadeEaisInfo = brigades.find(
       (brigade) => brigade.state === true
     );
-    /* if (this.activeBrigadeEaisInfo) {
-      this.getEaisInfo(this.activeBrigadeEaisInfo.eais.id_eais);
-    } */
   }
-
-  /* getEaisInfo(id: string) {
-    this.infoEaisService.searchInfoEaisInApi(id).subscribe({
-      next: (response) => {
-        this.eaisInformation = response;
-        console.log(this.eaisInformation);
-      },
-      error: (err) => {
-        console.log(err.error);
-      },
-    });
-  } */
 
   /* TODO: dibujar mapa */
   drawMap() {
@@ -234,6 +277,7 @@ export class EaisInformationComponent implements OnInit {
         cedula: element.cedula,
         celular: element.celular,
         icon: element.icon,
+        riesgo: element.riesgo,
       };
       chamboCoordenadas.push(object);
     });
@@ -264,11 +308,11 @@ export class EaisInformationComponent implements OnInit {
     });
 
     this.map = new Map({
-      target: 'map',
+      target: 'mapae',
       layers: [this.baseMaps, this.overLays, this.vectorLayer],
       view: new View({
         center: fromLonLat([this.selectedView[0], this.selectedView[1]]),
-        zoom: 14.8,
+        zoom: 14.7,
       }),
     });
 
@@ -283,7 +327,9 @@ export class EaisInformationComponent implements OnInit {
 
     this.map.addOverlay(this.overlay);
 
-    this.map.on('click', (evt) => {
+    const vector = this.vectorLayer.getSource();
+    vector?.clear();
+    this.map.on('pointermove', (evt) => {
       let feature = this.map.forEachFeatureAtPixel(
         evt.pixel,
         function (feature) {
@@ -325,29 +371,55 @@ export class EaisInformationComponent implements OnInit {
     });
   }
 
-  async filter(data?: any) {
-    /* para ver total embarazadas por a;o */
+  async filter(datae?: any) {
+    Loading.circle();
     if (this.select_year) {
-      console.log('Entro a year');
       this.pregnats = await this._fichaFamiliarService.getPregnats(
         this.select_year
       );
-      console.log('PREGNATS =>', this.pregnats);
+
+      this.obesity = await this._fichaFamiliarService.getObesityChildren(
+        this.select_year
+      );
+
+      this.malnutrition =
+        await this._fichaFamiliarService.getMalnutritionChildren(
+          this.select_year
+        );
+
+      this.disability = await this._fichaFamiliarService.getDisability(
+        this.select_year
+      );
+
+      this.diseases = await this._fichaFamiliarService.getDiseases(
+        this.select_year
+      );
+
+      this.personprior = await this._fichaFamiliarService.getPersonPrior(
+        this.select_year
+      );
     }
-    if (data) {
-      this.coordinates = data;
+    if (datae) {
+      this.coordinates = datae;
     } else {
-      console.log(this.select_rbiological);
       this.cedula = '';
       this.coordinates = await this._fichaFamiliarService.getLocation(
         this.select_year,
         this.select_age,
+        this.select_gender,
         this.select_rbiological,
         this.select_renvironmental,
         this.select_socioeconomic,
         this.select_gpriority,
         this.select_gvulnerable
       );
+
+      if (!(this.coordinates.length > 0)) {
+        this._utilService.toastInformation(
+          'No se encontraron datos para mostrar'
+        );
+        Loading.remove();
+      }
     }
 
     const vector = this.vectorLayer.getSource();
@@ -365,12 +437,11 @@ export class EaisInformationComponent implements OnInit {
         cedula: element.cedula,
         celular: element.celular,
         icon: element.icon,
+        riesgo: element.riesgo,
       };
-
       coordinatesNew.push(object);
     });
 
-    console.log(this.coordinates);
     coordinatesNew.forEach((element: any) => {
       const newFeatures = new Feature({
         geometry: new Point(element.coordenate),
@@ -384,22 +455,54 @@ export class EaisInformationComponent implements OnInit {
         celular: element.celular,
       });
 
-      /*  newFeatures.setStyle(
-        new Style({
-          image: new CircleStyle({
-            radius: 10,
-            fill: new Fill({ color: 'white' }),
-            stroke: new Stroke({ color: element.color, width: 1 }),
-            scale: 1.5,
-          }),
-          zIndex: 0,
-        })
-      ); */
-
       newFeatures.setStyle(this.generateStyle(element));
 
       this.vectorSource.addFeature(newFeatures);
     });
+
+    /* if (
+      this.select_year?.length == 0 &&
+      this.select_age?.length == 0 &&
+      this.select_gender?.length == 0 &&
+      this.select_rbiological?.length == 0 &&
+      this.select_renvironmental?.length == 0 &&
+      this.select_socioeconomic?.length == 0 &&
+      this.select_gpriority?.length == 0 &&
+      this.select_gvulnerable?.length == 0 &&
+      !this.cedula &&
+      !this.view &&
+      !this.view_pregntas &&
+      this.type_obesity == undefined &&
+      this.type_malnutrition == 0 &&
+      this.type_disability === '' &&
+      this.type_diseases == 0 &&
+      this.type_personprior == ''
+    ) {
+      const vector = this.vectorLayer.getSource();
+      vector?.clear();
+    } */
+    if (
+      !this.select_year?.length &&
+      !this.select_age?.length &&
+      !this.select_gender?.length &&
+      !this.select_rbiological?.length &&
+      !this.select_renvironmental?.length &&
+      !this.select_socioeconomic?.length &&
+      !this.select_gpriority?.length &&
+      !this.select_gvulnerable?.length &&
+      !this.cedula &&
+      !this.view &&
+      !this.view_pregntas &&
+      !this.type_obesity &&
+      !this.type_malnutrition &&
+      !this.type_disability &&
+      !this.type_diseases &&
+      !this.type_personprior
+    ) {
+      const vector = this.vectorLayer.getSource();
+      vector?.clear();
+    }
+    Loading.remove();
   }
 
   matchProfessionalToMap(eais: string) {
@@ -408,7 +511,7 @@ export class EaisInformationComponent implements OnInit {
         this.selectedView = this.eaisER13;
         this.eaisLayer.setSource(
           new TileWMS({
-            url: 'http://localhost:8080/geoserver/mpwebapp/wms',
+            url: 'http://181.112.226.43:8080/geoserver/mpapp/wms',
             params: { LAYERS: 'EAIS,GEO_LOC', TILED: true },
             serverType: 'geoserver',
             transition: 2.0,
@@ -420,7 +523,7 @@ export class EaisInformationComponent implements OnInit {
         this.selectedView = this.eaisER15;
         this.eaisLayer.setSource(
           new TileWMS({
-            url: 'http://localhost:8080/geoserver/mpwebapp/wms',
+            url: 'http://181.112.226.43:8080/geoserver/mpapp/wms',
             params: { LAYERS: 'EAIS,GEO_LOC', TILED: true },
             serverType: 'geoserver',
             transition: 2.0,
@@ -432,7 +535,7 @@ export class EaisInformationComponent implements OnInit {
         this.selectedView = this.eaisER51;
         this.eaisLayer.setSource(
           new TileWMS({
-            url: 'http://localhost:8080/geoserver/mpwebapp/wms',
+            url: 'http://181.112.226.43:8080/geoserver/mpapp/wms',
             params: { LAYERS: 'EAIS,GEO_LOC', TILED: true },
             serverType: 'geoserver',
             transition: 2.0,
@@ -444,7 +547,7 @@ export class EaisInformationComponent implements OnInit {
         this.selectedView = this.eaisER45;
         this.eaisLayer.setSource(
           new TileWMS({
-            url: 'http://localhost:8080/geoserver/mpwebapp/wms',
+            url: 'http://181.112.226.43:8080/geoserver/mpapp/wms',
             params: { LAYERS: 'EAIS', TILED: true },
             serverType: 'geoserver',
             transition: 2.0,
@@ -456,7 +559,7 @@ export class EaisInformationComponent implements OnInit {
         this.selectedView = this.eaisEU03;
         this.eaisLayer.setSource(
           new TileWMS({
-            url: 'http://localhost:8080/geoserver/mpwebapp/wms',
+            url: 'http://181.112.226.43:8080/geoserver/mpapp/wms',
             params: { LAYERS: 'EAIS,GEO_LOC', TILED: true },
             serverType: 'geoserver',
             transition: 2.0,
@@ -471,10 +574,19 @@ export class EaisInformationComponent implements OnInit {
   }
 
   generateStyle(coordenate: any) {
+    let fillColor = 'white';
+    if (coordenate.riesgo === 'rb') {
+      fillColor = '#f078a4';
+    } else if (coordenate.riesgo === 're') {
+      fillColor = '#51ed8f';
+    } else if (coordenate.riesgo === 'rs') {
+      fillColor = '#f09f4f';
+    }
+
     const circle = new Style({
       image: new CircleStyle({
         radius: 10,
-        fill: new Fill({ color: 'white' }),
+        fill: new Fill({ color: fillColor }),
         stroke: new Stroke({ color: coordenate.color, width: 1 }),
         scale: 1.5,
       }),
@@ -500,8 +612,6 @@ export class EaisInformationComponent implements OnInit {
   }
 
   async filterCedula() {
-    console.log('cedula', this.cedula);
-
     if (!this._utilService.validateIdentityCard(this.cedula)) {
       this._utilService.toastWarning('Cedula Ingresada no Valida');
       return;
@@ -514,6 +624,208 @@ export class EaisInformationComponent implements OnInit {
       this._utilService.toastInformation(
         'No se encontro un registro en el criterio de busqueda'
       );
+      return;
+    }
+
+    this.filter(this.coordinates);
+  }
+
+  exportPdf() {
+    window.print();
+  }
+
+  viewData() {
+    if (this.view) {
+      this.view_button = 'Ver fichas';
+
+      const vector = this.vectorLayer.getSource();
+      vector?.clear();
+      this.view = false;
+    } else {
+      this.view_button = 'Ocultar fichas';
+      this.filter();
+      this.view = true;
+    }
+  }
+
+  async filterLocationPregntas(type: number, pregnats: string) {
+    if (this.type_pregnats == 0) {
+      this.type_pregnats = type;
+      this.view_pregntas = true;
+    } else {
+      if (this.type_pregnats == type) {
+        this.view_pregntas = false;
+        this.type_pregnats = 0;
+        const vector = this.vectorLayer.getSource();
+        vector?.clear();
+        this.filter();
+        return;
+      } else {
+        this.type_pregnats = type;
+        this.view_pregntas = true;
+      }
+    }
+    this.coordinates = await this._fichaFamiliarService.getLocationPregnats(
+      this.type_pregnats
+    );
+
+    if (!(this.coordinates.length > 0)) {
+      this._utilService.toastInformation(`No se encontraron ${pregnats}`);
+      return;
+    }
+
+    this.filter(this.coordinates);
+  }
+
+  async filterLocationObesity(type: boolean, message: string) {
+    if (this.type_obesity) {
+      if (this.type_obesity == type) {
+        const vector = this.vectorLayer.getSource();
+        vector?.clear();
+        this.filter();
+        this.type_obesity = undefined;
+
+        return;
+      } else {
+        this.type_obesity = type;
+      }
+    } else {
+      if (this.type_obesity == type) {
+        const vector = this.vectorLayer.getSource();
+        vector?.clear();
+        this.type_obesity = undefined;
+        this.filter();
+        return;
+      } else {
+        this.type_obesity = type;
+      }
+    }
+
+    this.coordinates = await this._fichaFamiliarService.getLocationObesity(
+      this.type_obesity
+    );
+
+    if (!(this.coordinates.length > 0)) {
+      this._utilService.toastInformation(`No se encontraron ${message}`);
+      return;
+    }
+
+    this.filter(this.coordinates);
+  }
+
+  async filterLocationMalnutrition(type: number, message: string) {
+    if (this.type_malnutrition == 0) {
+      this.type_malnutrition = type;
+    } else {
+      if (this.type_malnutrition == type) {
+        this.type_malnutrition = 0;
+        const vector = this.vectorLayer.getSource();
+        vector?.clear();
+        this.filter();
+        return;
+      } else {
+        this.type_malnutrition = type;
+      }
+    }
+    this.coordinates = await this._fichaFamiliarService.getLocationMalnutrition(
+      this.type_malnutrition
+    );
+
+    if (!(this.coordinates.length > 0)) {
+      this._utilService.toastInformation(`No se encontraron ${message}`);
+      return;
+    }
+
+    this.filter(this.coordinates);
+  }
+
+  async filterLocationDisability(type: string, message: string) {
+    if (this.type_disability == '') {
+      this.type_disability = type;
+    } else {
+      if (this.type_disability == type) {
+        this.type_disability = '';
+        const vector = this.vectorLayer.getSource();
+        vector?.clear();
+        this.filter();
+        return;
+      } else {
+        this.type_disability = type;
+      }
+    }
+    this.coordinates = await this._fichaFamiliarService.getLocationDisability(
+      this.type_disability
+    );
+
+    if (!(this.coordinates.length > 0)) {
+      this._utilService.toastInformation(`No se encontraron ${message}`);
+      return;
+    }
+
+    this.filter(this.coordinates);
+  }
+
+  async filterLocationDiseases(type: number, message: string) {
+    let query = '';
+    let query2 = '';
+    switch (type) {
+      case 1:
+        query = `DIABETES MELLITUS`;
+        break;
+      case 2:
+        query = `HIPERTENSIÓN`;
+        break;
+      case 3:
+        query = 'DIABETES MELLITUS';
+        query2 = 'HIPERTENSIÓN';
+        break;
+    }
+    if (this.type_diseases == 0) {
+      this.type_diseases = type;
+    } else {
+      if (this.type_diseases == type) {
+        this.type_diseases = 0;
+        const vector = this.vectorLayer.getSource();
+        vector?.clear();
+        this.filter();
+        return;
+      } else {
+        this.type_diseases = type;
+      }
+    }
+    this.coordinates = await this._fichaFamiliarService.getLocationDiseases(
+      query,
+      query2
+    );
+
+    if (!(this.coordinates.length > 0)) {
+      this._utilService.toastInformation(`No se encontraron ${message}`);
+      return;
+    }
+
+    this.filter(this.coordinates);
+  }
+
+  async filterLocationPersonPrior(type: string, message: string) {
+    if (this.type_personprior == '') {
+      this.type_personprior = type;
+    } else {
+      if (this.type_personprior == type) {
+        this.type_personprior = '';
+        const vector = this.vectorLayer.getSource();
+        vector?.clear();
+        this.filter();
+        return;
+      } else {
+        this.type_personprior = type;
+      }
+    }
+    this.coordinates = await this._fichaFamiliarService.getLocationPersonPrior(
+      this.type_personprior
+    );
+
+    if (!(this.coordinates.length > 0)) {
+      this._utilService.toastInformation(`No se encontraron ${message}`);
       return;
     }
 

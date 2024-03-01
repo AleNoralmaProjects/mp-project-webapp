@@ -1,10 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { PaginationInstance } from 'ngx-pagination';
-import { Notify, Report } from 'notiflix';
+import { Notify, Report, Confirm } from 'notiflix';
+import { BrigadeEaisService } from 'src/app/protected/apiservice/brigade-eais.service';
 import { ProfessionService } from 'src/app/protected/apiservice/profession.service';
 import { ProfessionalService } from 'src/app/protected/apiservice/professional.service';
 import {
+  BrigadaEAIS,
   Profesion,
   Profesional,
 } from 'src/app/protected/prointerfaces/api.interface';
@@ -21,8 +23,17 @@ export class ManageProfessionalComponent implements OnInit {
   updateProfessional: Profesional = Object.create([]);
   trueState: boolean = true;
 
+  brigadaEaisEnable: BrigadaEAIS = Object.create([]);
+
   list_professions: Profesion[] = [];
   all_professional: Profesional[] = [];
+
+  /* variable para actualizar fecha */
+  getDateNow: Date = new Date();
+
+  user_password = {
+    password: '',
+  };
 
   /* PAGINACION */
   public searchProfessionalString: string = '';
@@ -89,17 +100,26 @@ export class ManageProfessionalComponent implements OnInit {
     state: false,
   };
 
+  updateFormBrigadeEais = {
+    state: false,
+    fecha_actualizacion: '',
+  };
+
   constructor(
     private fb: FormBuilder,
     private professionalService: ProfessionalService,
-    private professionService: ProfessionService
+    private professionService: ProfessionService,
+    private brigadeEaisService: BrigadeEaisService
   ) {}
 
   /*  MOSTRAR PROFESIONAL */
   ngOnInit(): void {
+    this.searchAllProfessionals();
+  }
+
+  searchAllProfessionals() {
     this.professionalService.showProfessionalinApi().subscribe({
       next: (prof) => {
-        console.log(prof);
         this.all_professional = prof;
       },
       error: (err) => {
@@ -107,31 +127,24 @@ export class ManageProfessionalComponent implements OnInit {
       },
     });
   }
-
   /* MODAL */
   addProfessional() {
-    console.log('ENVIAR FORMULARIO');
-
-    console.log(this.createFormProfessional.value);
-    console.log(this.createFormProfessional.valid);
     this.professionalService
       .createProfessionalInApi(this.createFormProfessional.value)
       .subscribe({
         next: (respuesta) => {
-          console.log(respuesta);
           Notify.success('El profesional se agrego correctamente');
           this.createFormProfessional.reset(this.clearDataInputsProfessional);
-          this.ngOnInit();
+          this.searchAllProfessionals();
         },
         error: (err) => {
-          console.log(err.error.message);
           Report.failure(
             'Algo ha salido mal',
             `Detalles: ${err.error.message}.`,
             'Volver'
           );
           this.createFormProfessional.reset(this.clearDataInputsProfessional);
-          this.ngOnInit();
+          this.searchAllProfessionals();
         },
       });
 
@@ -142,11 +155,14 @@ export class ManageProfessionalComponent implements OnInit {
   showAllProfession() {
     this.professionService.showProfessionInApi().subscribe({
       next: (respuesta) => {
-        console.log(respuesta);
         this.list_professions = respuesta;
       },
       error: (err) => {
-        console.log(err.error.message);
+        Report.failure(
+          'Algo ha salido mal',
+          `Detalles: ${err.error.message}.`,
+          'Volver'
+        );
       },
     });
   }
@@ -155,39 +171,75 @@ export class ManageProfessionalComponent implements OnInit {
     idUpdateProfessional: string,
     stateUpdateProfesional: boolean
   ) {
-    console.log(idUpdateProfessional);
+    this.searchBrigadeEaisEnable(idUpdateProfessional);
+    this.updateFormBrigadeEais.fecha_actualizacion =
+      this.getDateNow.toISOString();
 
-    console.log(!stateUpdateProfesional);
+    Confirm.show(
+      'Actualizar Profesional',
+      'Desea cambiar el estado del profesional!',
+      'Aceptar',
+      'Cancelar',
+      () => {
+        this.updateProfessional.state = !stateUpdateProfesional;
 
-    this.updateProfessional.state = !stateUpdateProfesional;
+        this.professionalService
+          .updateProfessionalStateInApi(
+            idUpdateProfessional,
+            this.updateProfessional
+          )
+          .subscribe({
+            next: (respuesta) => {
+              this.searchAllProfessionals();
+              Notify.success('El profesional se actualizo correctamente');
+            },
+            error: (err) => {
+              Report.failure(
+                'Algo ha salido mal',
+                `Detalles: ${err.error.message}.`,
+                'Volver'
+              );
+            },
+          });
+        if (this.brigadaEaisEnable) {
+          this.updateBrigadeState(this.brigadaEaisEnable.id_brigadaeais);
+        }
+      },
+      () => {
+        this.searchAllProfessionals();
+        Notify.failure('Actualización cancelada');
+      }
+    );
+  }
 
+  searchBrigadeEaisEnable(id: string) {
     this.professionalService
-      .updateProfessionalStateInApi(
-        idUpdateProfessional,
-        this.updateProfessional
-      )
+      .shearchProfessionalBrigadaEaisEnable(id)
       .subscribe({
         next: (respuesta) => {
-          console.log(respuesta);
-          Notify.success('El profesional se actualizo correctamente');
-          this.ngOnInit();
+          this.brigadaEaisEnable = respuesta.brigadaEai[0];
         },
         error: (err) => {
-          console.log(err.error.message);
-          Report.failure(
-            'Algo ha salido mal',
-            `Detalles: ${err.error.message}.`,
-            'Volver'
-          );
+          this.brigadaEaisEnable = Object.create([]);
         },
       });
+  }
+
+  updateBrigadeState(id: string) {
+    if (id) {
+      this.brigadeEaisService
+
+        .updateBrigadeEaisStateInApi(id, this.updateFormBrigadeEais)
+        .subscribe({
+          next: (respuesta) => {},
+          error: (err) => {},
+        });
+    }
   }
 
   toggleOpenModalProfessional() {
     this.showAllProfession();
     this.open_create_professional = !this.open_create_professional;
-
-    /* console.log(this.all_professional); */
   }
 
   toggleCreateProfessionalModalClose() {
@@ -195,7 +247,6 @@ export class ManageProfessionalComponent implements OnInit {
     this.open_create_professional = false;
 
     this.createFormProfessional.reset(this.clearDataInputsProfessional);
-    console.log('Limpiar formulario');
   }
 
   get clearDataInputsProfessional() {
@@ -210,6 +261,40 @@ export class ManageProfessionalComponent implements OnInit {
       password: '',
       state: true,
     };
+  }
+
+  resetPassword(professional: Profesional) {
+    const id = professional.id_profesional;
+    this.user_password.password = professional.cedula;
+    const profesional = professional.nombres + ' ' + professional.apellidos;
+
+    Confirm.show(
+      'Reestablecer contraseña',
+      `Desea establecer el CI como contraseña para el usuraio ${profesional}!`,
+      'Aceptar',
+      'Cancelar',
+      () => {
+        this.professionalService
+          .updatePasswordInApi(id, this.user_password)
+          .subscribe({
+            next: (respuesta) => {
+              this.user_password.password = '';
+              Notify.success('La contraseña ha sido reestablecida');
+            },
+            error: (err) => {
+              this.user_password.password = '';
+              Report.failure(
+                'Actualización fallida',
+                `Detalles: ${err}`,
+                'Volver'
+              );
+            },
+          });
+      },
+      () => {
+        Notify.failure('Actualización cancelada');
+      }
+    );
   }
 
   /* EVENTOS DE PAGINACION */

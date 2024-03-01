@@ -23,7 +23,7 @@ export class ManageProfessionComponent implements OnInit {
         Validators.required,
         Validators.minLength(4),
         Validators.maxLength(50),
-        Validators.pattern(/^[a-zA-Z0-9áéíóúüÜÁÉÍÓÚñÑ\s]*$/),
+        Validators.pattern(/^[a-zA-Z0-9áéíóúüÜÁÉÍÓÚñÑ\s\/]*$/),
       ],
     ],
   });
@@ -37,7 +37,6 @@ export class ManageProfessionComponent implements OnInit {
   ngOnInit(): void {
     this.professionService.showProfessionInApi().subscribe({
       next: (prof) => {
-        console.log(prof);
         this.all_profession = prof;
       },
       error: (err) => {
@@ -48,22 +47,15 @@ export class ManageProfessionComponent implements OnInit {
 
   /* MODAL AGREGAR */
   addProfession() {
-    console.log('ENVIAR FORMULARIO');
-
-    console.log(this.createFormProfession.value);
-    console.log(this.createFormProfession.valid);
-
     this.professionService
       .createProfessionInApi(this.createFormProfession.value)
       .subscribe({
         next: (respuesta) => {
-          console.log(respuesta);
           Notify.success('La profesión se agrego correctamente');
           this.createFormProfession.reset(this.clearDataInputProfession);
           this.ngOnInit();
         },
         error: (err) => {
-          console.log(err.error.message);
           Report.failure(
             'Algo ha salido mal',
             `Detalles: ${err.error.message}.`,
@@ -74,7 +66,6 @@ export class ManageProfessionComponent implements OnInit {
         },
       });
 
-    /* despues de todo */
     this.toggleCreateProfessionModalClose();
   }
 
@@ -83,17 +74,10 @@ export class ManageProfessionComponent implements OnInit {
   }
 
   toggleCreateProfessionModalClose() {
-    /* limpiar formulario */
     this.open_create_profession = false;
 
     this.createFormProfession.reset(this.clearDataInputProfession);
-    console.log('Limpiar formulario');
   }
-
-  /* FUNCIONES PARA BORRAR DATOS EN LOS FORMS */
-  /* clearFormClosedProfesion() {
-    this.createFormProfession.reset(this.clearDataInputProfession);
-  } */
 
   get clearDataInputProfession() {
     return {

@@ -33,17 +33,16 @@ export class AuthService {
   /* METODO PRIVADO */
   private setAuthentication(user: User, token: string): boolean {
     user.token = token;
-    console.log(user, token);
+
     this._currentlyUser.set(user);
     this._authStatus.set(AuthStatus.authentication);
-    console.log(this._currentlyUser, this._authStatus);
+
     localStorage.setItem('token', token);
     return true;
   }
 
   /*   servicio para autenticacion  for backend */
   loginConection(user: string, password: string): Observable<boolean> {
-    console.log(user, password);
     const url = `${this.apiUrlLogin}login`;
     const body_query = { user, password };
     return this.http.post<AuthResponse>(url, body_query).pipe(
@@ -64,7 +63,6 @@ export class AuthService {
   }
 
   checkAuthStatus(): Observable<boolean> {
-    console.log('Verificacion del Token');
     const url = `${this.apiUrlLogin}status-verify`;
     const token = localStorage.getItem('token');
 

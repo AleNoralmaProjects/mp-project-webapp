@@ -8,7 +8,7 @@ import {
 import { BrigadeEaisService } from '../../../apiservice/brigade-eais.service';
 import { ProfessionalService } from 'src/app/protected/apiservice/professional.service';
 import { InfoEaisService } from 'src/app/protected/apiservice/info-eais.service';
-import { Notify, Report } from 'notiflix';
+import { Confirm, Notify, Report } from 'notiflix';
 import { PaginationInstance } from 'ngx-pagination';
 
 @Component({
@@ -76,9 +76,12 @@ export class BrigadaEaisComponent implements OnInit {
 
   /*  MOSTRAR BRIGADA */
   ngOnInit(): void {
+    this.searchAllBrigades();
+  }
+
+  searchAllBrigades() {
     this.brigadeEaisService.showBrigadeEaisInApi().subscribe({
       next: (brig) => {
-        console.log('Brigada: ', brig);
         this.all_brigadeEais = brig;
       },
       error: (err) => {
@@ -89,8 +92,6 @@ export class BrigadaEaisComponent implements OnInit {
 
   /* MODAL */
   addBrigadeEais() {
-    console.log('ENVIAR FORMULARIO');
-
     const createDate = new Date();
 
     this.createFormBrigade
@@ -101,20 +102,18 @@ export class BrigadaEaisComponent implements OnInit {
       .createBrigadeEaisInApi(this.createFormBrigade.value)
       .subscribe({
         next: (respuesta) => {
-          console.log(respuesta);
           Notify.success('La Brigada EAIS se agrego correctamente');
           this.createFormBrigade.reset(this.clearDataInputsBrigade);
-          this.ngOnInit();
+          this.searchAllBrigades();
         },
         error: (err) => {
-          console.log(err.error.message);
           Report.failure(
             'Algo ha salido mal',
             `Detalles: ${err.error.message}.`,
             'Volver'
           );
           this.createFormBrigade.reset(this.clearDataInputsBrigade);
-          this.ngOnInit();
+          this.searchAllBrigades();
         },
       });
 
@@ -126,8 +125,6 @@ export class BrigadaEaisComponent implements OnInit {
   showAllProfessional() {
     this.professionalService.showActiveProfessionalinApi().subscribe({
       next: (respuesta) => {
-        console.log('Lista de Profesionales:', respuesta);
-
         if (respuesta !== null) {
           this.handleProfessionalsResult(respuesta);
         } else {
@@ -135,7 +132,11 @@ export class BrigadaEaisComponent implements OnInit {
         }
       },
       error: (err) => {
-        console.log(err.error.message);
+        Report.failure(
+          'Algo ha salido mal',
+          `Detalles: ${err.error.message}.`,
+          'Volver'
+        );
       },
     });
   }
@@ -150,49 +151,60 @@ export class BrigadaEaisComponent implements OnInit {
   showAllInfoEais() {
     this.infoEaisService.showInfoEaisInApi().subscribe({
       next: (respuesta) => {
-        console.log('listar Info Eais:', respuesta);
         this.list_infoEais = respuesta;
       },
       error: (err) => {
-        console.log(err.error.message);
+        Report.failure(
+          'Algo ha salido mal',
+          `Detalles: ${err.error.message}.`,
+          'Volver'
+        );
       },
     });
   }
 
   /* ACTUALIZAR BRIGADA*/
   updateBrigadeEaisData(idUpdateBrigade: string, stateUpdateBrigade: boolean) {
-    console.log(idUpdateBrigade);
-    console.log(!stateUpdateBrigade);
-
     this.updateFormBrigadeEais.state = !stateUpdateBrigade;
 
     this.updateFormBrigadeEais.fecha_actualizacion =
       this.getDateNow.toISOString();
-    console.log(this.updateBrigadeInfo);
 
-    let verifyProfessional = this.list_professionals.filter(
-      (professional) => !professional.brigadaEai.some((item) => item.state)
+    Confirm.show(
+      'Actualizar Brigada',
+      'Desea cambiar el estado de la Brigada!',
+      'Aceptar',
+      'Cancelar',
+
+      () => {
+        let verifyProfessional = this.list_professionals.filter(
+          (professional) => !professional.brigadaEai.some((item) => item.state)
+        );
+
+        this.brigadeEaisService
+          .updateBrigadeEaisStateInApi(
+            idUpdateBrigade,
+            this.updateFormBrigadeEais
+          )
+          .subscribe({
+            next: (respuesta) => {
+              Notify.success('La brigada se actualizo correctamente');
+              this.searchAllBrigades();
+            },
+            error: (err) => {
+              Report.failure(
+                'Algo ha salido mal',
+                `Detalles: ${err.error.message}.`,
+                'Volver'
+              );
+            },
+          });
+      },
+      () => {
+        this.searchAllBrigades();
+        Notify.failure('Actualización cancelada');
+      }
     );
-
-    console.log(verifyProfessional);
-    console.log(typeof verifyProfessional);
-    this.brigadeEaisService
-      .updateBrigadeEaisStateInApi(idUpdateBrigade, this.updateFormBrigadeEais)
-      .subscribe({
-        next: (respuesta) => {
-          console.log(respuesta);
-          Notify.success('La brigada se actualizo correctamente');
-          this.ngOnInit();
-        },
-        error: (err) => {
-          console.log(err.error.message);
-          Report.failure(
-            'Algo ha salido mal',
-            `Detalles: ${err.error.message}.`,
-            'Volver'
-          );
-        },
-      });
   }
 
   toggleOpenModal() {
@@ -206,7 +218,6 @@ export class BrigadaEaisComponent implements OnInit {
     this.open_create_brigadeEais = false;
 
     this.createFormBrigade.reset(this.clearDataInputsBrigade);
-    console.log('Limpiar formulario');
   }
 
   get clearDataInputsBrigade() {

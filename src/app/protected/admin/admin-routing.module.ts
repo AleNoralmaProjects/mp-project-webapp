@@ -8,6 +8,7 @@ import { ManageProfessionalComponent } from './pages/manage-professional/manage-
 import { ManageProfessionComponent } from './pages/manage-profession/manage-profession.component';
 import { ManageInfoeaisComponent } from './pages/manage-infoeais/manage-infoeais.component';
 import { AdminProfileComponent } from './pages/admin-profile/admin-profile.component';
+import { GenerateRoutesComponent } from './pages/generate-routes/generate-routes.component';
 
 const routes: Routes = [
   {
@@ -18,6 +19,10 @@ const routes: Routes = [
       {
         path: 'home',
         component: ViewMapComponent,
+      },
+      {
+        path: 'routes',
+        component: GenerateRoutesComponent,
       },
       {
         path: 'brigada-eais',

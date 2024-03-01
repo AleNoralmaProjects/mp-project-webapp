@@ -4,6 +4,7 @@ import { EaisHomeComponent } from './layout/eais-home/eais-home.component';
 import { EaisInformationComponent } from './pages/eais-information/eais-information.component';
 import { EaisProfileComponent } from './pages/eais-profile/eais-profile.component';
 import { PageNotFoundComponent } from 'src/app/auth/page-not-found/page-not-found.component';
+import { RoutesEaisComponent } from './pages/routes-eais/routes-eais.component';
 
 const routes: Routes = [
   {
@@ -13,6 +14,10 @@ const routes: Routes = [
       {
         path: 'home',
         component: EaisInformationComponent,
+      },
+      {
+        path: 'routes-eais',
+        component: RoutesEaisComponent,
       },
       {
         path: 'eais-profile',

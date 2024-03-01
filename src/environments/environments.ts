@@ -1,3 +1,3 @@
 export const environment = {
-  globalUrl: 'http://localhost:3000/mp-api',
+  globalUrl: 'http://181.112.228.14:3001/mp-api',
 };

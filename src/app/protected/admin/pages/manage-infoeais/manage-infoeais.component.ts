@@ -64,7 +64,6 @@ export class ManageInfoeaisComponent implements OnInit {
   ngOnInit(): void {
     this.infoEaisService.showInfoEaisInApi().subscribe({
       next: (prof) => {
-        console.log(prof);
         this.all_infoEais = prof;
       },
       error: (err) => {
@@ -76,22 +75,15 @@ export class ManageInfoeaisComponent implements OnInit {
   /* FUNCIONES  */
   /* REGISTRAR INFO EAIS */
   addInfoEais() {
-    console.log('ENVIAR FORMULARIO');
-    console.log(this.createFormInfoEais.value);
-    console.log(this.createFormInfoEais.valid);
-
     this.infoEaisService
       .createInfoEaisInApi(this.createFormInfoEais.value)
       .subscribe({
         next: (respuesta) => {
-          console.log(respuesta);
           Notify.success('El profesional se agrego correctamente');
           this.createFormInfoEais.reset(this.clearDataInpustEais);
           this.ngOnInit();
         },
         error: (err) => {
-          console.log(err.error.message);
-
           Report.failure(
             'Algo ha salido mal',
             `Detalles: ${err.error.message}.`,
@@ -116,7 +108,6 @@ export class ManageInfoeaisComponent implements OnInit {
     this.open_create_infoeais = false;
 
     this.createFormInfoEais.reset(this.clearDataInpustEais);
-    console.log('Limpiar formulario');
   }
 
   /* FUNCIONES PARA BORRAR DATOS EN LOS FORMS */

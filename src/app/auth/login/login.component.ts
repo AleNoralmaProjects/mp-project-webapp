@@ -29,16 +29,13 @@ export class LoginComponent {
 
   /* Funcion  Login */
   login() {
-    console.log('Has hecho clic');
     const { user, password } = this.myLoginForm.value;
     this.authService.loginConection(user, password).subscribe({
       next: (response) => {
-        console.log(response);
         const rol = this.user_auth_info()?.role.toLowerCase();
         this.router.navigateByUrl(`/protectedroute/${rol}/pages/home`);
       },
       error: (err) => {
-        console.log(err.error);
         Report.failure('No autorizado', err.message, 'Regresar');
       },
     });
@@ -46,5 +43,13 @@ export class LoginComponent {
 
   uuidValidateV4(uuid: string) {
     return uuidValidate(uuid) && uuidVersion(uuid) === 4;
+  }
+
+  showMessage() {
+    Report.info(
+      'Reestablecer Contraseña',
+      'Por favor, para reestablecer su contraseña contactese con el administrador del sistema',
+      'OK'
+    );
   }
 }

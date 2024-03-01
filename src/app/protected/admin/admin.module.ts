@@ -13,6 +13,7 @@ import { NgxPaginationModule } from 'ngx-pagination';
 import { SharedModule } from '../shared/shared.module';
 import { AdminProfileComponent } from './pages/admin-profile/admin-profile.component';
 import { NgSelectModule } from '@ng-select/ng-select';
+import { GenerateRoutesComponent } from './pages/generate-routes/generate-routes.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { NgSelectModule } from '@ng-select/ng-select';
     ManageProfessionalComponent,
     ManageProfessionComponent,
     ManageInfoeaisComponent,
-    AdminProfileComponent
+    AdminProfileComponent,
+    GenerateRoutesComponent
   ],
   imports: [
     CommonModule,

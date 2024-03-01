@@ -29,58 +29,39 @@
     </div>
 
     <!-- BUTTON SEARCH -->
-    <div class="hidden sm:block sm:relative">
-      <input
-        [(ngModel)]="searchProfessionalString"
-        type="text"
-        placeholder="Buscar"
-        class="custom-search-button transition hover:shadow-xl group"
-      />
-      <span class="absolute inset-y-0 grid w-10 place-content-center end-0">
-        <button type="button" class="hover:text-blue-600 focus:text-blue-600">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke-width="1.5"
-            stroke="currentColor"
-            class="h-4 w-4 group-hover:text-blue-600 group-focus:text-blue-600"
-          >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z"
-            />
-          </svg>
-        </button>
-      </span>
-    </div>
 
-    <div class="block relative sm:hidden">
-      <input
-        [(ngModel)]="searchProfessionalString"
-        type="text"
-        placeholder="Buscar"
-        class="custom-search-button transition hover:shadow-xl group pl-10"
-      />
-      <span class="absolute inset-y-0 grid w-10 place-content-center">
-        <button type="button" class="hover:text-blue-600 focus:text-blue-600">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke-width="1.5"
-            stroke="currentColor"
-            class="h-4 w-4 group-hover:text-blue-600 group-focus:text-blue-600"
+    <div class="flex items-center left-11">
+      <div class="relative w-[175px] sm:w-48">
+        <input
+          [(ngModel)]="searchProfessionalString"
+          type="text"
+          placeholder="Buscar"
+          class="custom-search-button transition hover:shadow-xl group w-full"
+        />
+        <div
+          class="flex flex-row absolute right-2 top-1/2 transform -translate-y-1/2"
+        >
+          <button
+            type="button"
+            class="p-1 rounded-full hover:bg-blue-200 transition"
           >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z"
-            />
-          </svg>
-        </button>
-      </span>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke-width="1.5"
+              stroke="currentColor"
+              class="h-4 w-4 text-blue-800"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z"
+              />
+            </svg>
+          </button>
+        </div>
+      </div>
     </div>
   </div>
 
@@ -326,7 +307,10 @@
               <td class="custom-table-thead-td">Teléfono</td>
               <td class="custom-table-thead-td">Usuario</td>
               <td class="custom-table-thead-td">Estado</td>
-              <td class="rounded-r-lg border-e custom-table-thead-td"></td>
+              <td class="custom-table-thead-td"></td>
+              <td class="rounded-r-lg border-e custom-table-thead-td">
+                Contraseña
+              </td>
             </tr>
           </thead>
 
@@ -367,7 +351,7 @@
               <td class="custom-table-tbody-td">
                 {{ professional.state | statusManagement }}
               </td>
-              <td class="rounded-r-lg border-e custom-table-tbody-td">
+              <td class="custom-table-tbody-td">
                 <label
                   class="relative h-6 w-11 cursor-pointer [-webkit-tap-highlight-color:_transparent] flex items-center justify-center"
                 >
@@ -417,6 +401,31 @@
                     class="absolute inset-0 rounded-full bg-gray-300 transition peer-checked:bg-green-500"
                   ></span>
                 </label>
+              </td>
+              <td
+                class="rounded-r-lg border-e custom-table-tbody-td text-center justify-center"
+              >
+                <button (click)="resetPassword(professional)">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    class="icon icon-tabler icon-tabler-lock hover:text-blue-700 transition"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    stroke-width="1.5"
+                    stroke="currentColor"
+                    fill="none"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  >
+                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                    <path
+                      d="M5 13a2 2 0 0 1 2 -2h10a2 2 0 0 1 2 2v6a2 2 0 0 1 -2 2h-10a2 2 0 0 1 -2 -2v-6z"
+                    />
+                    <path d="M11 16a1 1 0 1 0 2 0a1 1 0 0 0 -2 0" />
+                    <path d="M8 11v-4a4 4 0 1 1 8 0v4" />
+                  </svg>
+                </button>
               </td>
             </tr>
           </tbody>

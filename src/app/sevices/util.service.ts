@@ -14,7 +14,9 @@ export class UtilService {
       title_l = title;
     }
 
-    this._toastService.info(message, title);
+    this._toastService.info(message, title, {
+      timeOut: 1500,
+    });
   }
 
   toastWarning(message: string, title?: string) {
@@ -23,9 +25,10 @@ export class UtilService {
       title_l = title;
     }
 
-    this._toastService.info(message, title);
+    this._toastService.info(message, title, {
+      timeOut: 1500,
+    });
   }
-
 
   validateIdentityCard(cedula: string): boolean {
     let valido = false;
@@ -64,6 +67,4 @@ export class UtilService {
     valido = d10 === d[9];
     return valido;
   }
-
-
 }

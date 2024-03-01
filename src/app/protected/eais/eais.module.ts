@@ -7,13 +7,25 @@ import { EaisInformationComponent } from './pages/eais-information/eais-informat
 import { NgSelectModule } from '@ng-select/ng-select';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from '../shared/shared.module';
+import { RoutesEaisComponent } from './pages/routes-eais/routes-eais.component';
+import { NullPipe } from '../pipes/null.pipe';
+import { ProtectedModule } from '../protected.module';
 
 @NgModule({
   declarations: [
     EaisHomeComponent,
     EaisProfileComponent,
     EaisInformationComponent,
+    RoutesEaisComponent,
   ],
-  imports: [CommonModule, EaisRoutingModule, NgSelectModule, ReactiveFormsModule, FormsModule, SharedModule],
+  imports: [
+    CommonModule,
+    EaisRoutingModule,
+    NgSelectModule,
+    ReactiveFormsModule,
+    FormsModule,
+    SharedModule,
+    ProtectedModule,
+  ],
 })
 export class EaisModule {}
