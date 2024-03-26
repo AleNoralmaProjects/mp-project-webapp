@@ -104,7 +104,7 @@ export class RoutesEaisComponent implements OnInit {
     combine: true,
     visible: false,
     source: new BingMaps({
-      key: 'AtmNrEkB6w4FcBahS6VsMXO6d0wtpBTfuP8RH_OozswG1YwruAkVk6_B4LVtJKBe',
+      key: 'Aiwl9vkGFDhpasG4UwDhC_cDPJ4PvqSG5RcEY-D4wgeYeNWHJvQTF52hfyCL54tM',
       imagerySet: 'AerialWithLabelsOnDemand',
     }),
     opacity: 0.85,

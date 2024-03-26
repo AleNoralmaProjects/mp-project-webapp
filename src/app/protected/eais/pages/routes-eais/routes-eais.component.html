@@ -1,14 +1,11 @@
-<div class="h-screen flex flex-row gap-0 p-0 relative">
-  <div
-    id="rutaseais"
-    class="w-2/4 flex bg-no-repeat active:cursor-move h-full md:w-3/4"
-  ></div>
+<div class="h-screen flex flex-col gap-0 p-0 relative">
+  <div id="rutaseais" class="flex bg-no-repeat active:cursor-move h-full"></div>
 
   <!-- MOSTRAR BOTON DE BUSQUEDA, CURRENT LOCATION-->
   <div
-    class="flex flex-col gap-2 absolute top-2 z-10 sm:left-11 md:gap-3 lg:flex-row"
+    class="flex flex-col gap-2 absolute top-2 z-10 sm:left-11 md:gap-3 sm:flex-row"
   >
-    <div class="hidden relative items-center left-11 sm:left-0 sm:flex">
+    <div class="flex relative items-center left-11 sm:left-0">
       <div class="relative w-[175px] sm:w-48">
         <input
           [(ngModel)]="cedula"
@@ -67,133 +64,141 @@
     </div>
 
     <div class="flex flex-col gap-2 ml-2 mt-16 sm:flex-row sm:mt-0">
-      <button
-        (click)="getCurrentLocation()"
-        class="flex bg-indigo-700 rounded-md p-2 gap-2 border border-indigo-300 text-center justify-center hover:bg-indigo-800 transition"
-      >
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          class="icon icon-tabler icon-tabler-current-location text-white"
-          width="24"
-          height="24"
-          viewBox="0 0 24 24"
-          stroke-width="1.5"
-          stroke="currentColor"
-          fill="none"
-          stroke-linecap="round"
-          stroke-linejoin="round"
+      <div>
+        <button
+          (click)="getCurrentLocation()"
+          class="flex bg-indigo-700 rounded-md p-2 gap-2 border border-indigo-300 text-center justify-center hover:bg-indigo-800 transition"
         >
-          <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-          <path d="M12 12m-3 0a3 3 0 1 0 6 0a3 3 0 1 0 -6 0" />
-          <path d="M12 12m-8 0a8 8 0 1 0 16 0a8 8 0 1 0 -16 0" />
-          <path d="M12 2l0 2" />
-          <path d="M12 20l0 2" />
-          <path d="M20 12l2 0" />
-          <path d="M2 12l2 0" />
-        </svg>
-        <p class="hidden text-base text-white md:block">Mi ubicación</p>
-      </button>
-      <button
-        (click)="getCschLocation()"
-        class="flex bg-cyan-800 rounded-md p-2 gap-2 border border-cyan-800 text-center justify-center hover:bg-cyan-900 transition"
-      >
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          class="icon icon-tabler icon-tabler-building-hospital text-white"
-          width="24"
-          height="24"
-          viewBox="0 0 24 24"
-          stroke-width="1.5"
-          stroke="currentColor"
-          fill="none"
-          stroke-linecap="round"
-          stroke-linejoin="round"
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="icon icon-tabler icon-tabler-current-location text-white"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            stroke-width="1.5"
+            stroke="currentColor"
+            fill="none"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+            <path d="M12 12m-3 0a3 3 0 1 0 6 0a3 3 0 1 0 -6 0" />
+            <path d="M12 12m-8 0a8 8 0 1 0 16 0a8 8 0 1 0 -16 0" />
+            <path d="M12 2l0 2" />
+            <path d="M12 20l0 2" />
+            <path d="M20 12l2 0" />
+            <path d="M2 12l2 0" />
+          </svg>
+          <p class="hidden text-base text-white md:block">Mi ubicación</p>
+        </button>
+      </div>
+      <div>
+        <button
+          (click)="getCschLocation()"
+          class="flex bg-cyan-800 rounded-md p-2 gap-2 border border-cyan-800 text-center justify-center hover:bg-cyan-900 transition"
         >
-          <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-          <path d="M3 21l18 0" />
-          <path d="M5 21v-16a2 2 0 0 1 2 -2h10a2 2 0 0 1 2 2v16" />
-          <path d="M9 21v-4a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v4" />
-          <path d="M10 9l4 0" />
-          <path d="M12 7l0 4" />
-        </svg>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="icon icon-tabler icon-tabler-building-hospital text-white"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            stroke-width="1.5"
+            stroke="currentColor"
+            fill="none"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+            <path d="M3 21l18 0" />
+            <path d="M5 21v-16a2 2 0 0 1 2 -2h10a2 2 0 0 1 2 2v16" />
+            <path d="M9 21v-4a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v4" />
+            <path d="M10 9l4 0" />
+            <path d="M12 7l0 4" />
+          </svg>
 
-        <p class="hidden text-base text-white md:block">CS CHAMBO</p>
-      </button>
-      <button
-        (click)="setPatientLocation()"
-        class="flex bg-sky-800 rounded-md p-2 gap-2 border border-sky-800 text-center justify-center hover:bg-sky-900 transition"
-      >
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          class="icon icon-tabler icon-tabler-user-pin text-white"
-          width="24"
-          height="24"
-          viewBox="0 0 24 24"
-          stroke-width="1.5"
-          stroke="currentColor"
-          fill="none"
-          stroke-linecap="round"
-          stroke-linejoin="round"
+          <p class="hidden text-base text-white md:block">CS CHAMBO</p>
+        </button>
+      </div>
+      <div>
+        <button
+          (click)="setPatientLocation()"
+          class="flex bg-sky-800 rounded-md p-2 gap-2 border border-sky-800 text-center justify-center hover:bg-sky-900 transition"
         >
-          <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-          <path d="M8 7a4 4 0 1 0 8 0a4 4 0 0 0 -8 0" />
-          <path d="M6 21v-2a4 4 0 0 1 4 -4h2.5" />
-          <path
-            d="M21.121 20.121a3 3 0 1 0 -4.242 0c.418 .419 1.125 1.045 2.121 1.879c1.051 -.89 1.759 -1.516 2.121 -1.879z"
-          />
-          <path d="M19 18v.01" />
-        </svg>
-        <p class="hidden text-base text-white md:block">Paciente</p>
-      </button>
-      <button
-        (click)="clearRoute()"
-        class="flex bg-red-800 rounded-md p-2 gap-2 border border-red-800 text-center justify-center hover:bg-red-900 transition"
-      >
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          class="icon icon-tabler icon-tabler-trash-filled text-white"
-          width="22"
-          height="22"
-          viewBox="0 0 24 24"
-          stroke-width="1.5"
-          stroke="currentColor"
-          fill="none"
-          stroke-linecap="round"
-          stroke-linejoin="round"
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="icon icon-tabler icon-tabler-user-pin text-white"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            stroke-width="1.5"
+            stroke="currentColor"
+            fill="none"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+            <path d="M8 7a4 4 0 1 0 8 0a4 4 0 0 0 -8 0" />
+            <path d="M6 21v-2a4 4 0 0 1 4 -4h2.5" />
+            <path
+              d="M21.121 20.121a3 3 0 1 0 -4.242 0c.418 .419 1.125 1.045 2.121 1.879c1.051 -.89 1.759 -1.516 2.121 -1.879z"
+            />
+            <path d="M19 18v.01" />
+          </svg>
+          <p class="hidden text-base text-white md:block">Paciente</p>
+        </button>
+      </div>
+      <div>
+        <button
+          (click)="clearRoute()"
+          class="flex bg-red-800 rounded-md p-2 gap-2 border border-red-800 text-center justify-center hover:bg-red-900 transition"
         >
-          <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-          <path
-            d="M20 6a1 1 0 0 1 .117 1.993l-.117 .007h-.081l-.919 11a3 3 0 0 1 -2.824 2.995l-.176 .005h-8c-1.598 0 -2.904 -1.249 -2.992 -2.75l-.005 -.167l-.923 -11.083h-.08a1 1 0 0 1 -.117 -1.993l.117 -.007h16z"
-            stroke-width="0"
-            fill="currentColor"
-          />
-          <path
-            d="M14 2a2 2 0 0 1 2 2a1 1 0 0 1 -1.993 .117l-.007 -.117h-4l-.007 .117a1 1 0 0 1 -1.993 -.117a2 2 0 0 1 1.85 -1.995l.15 -.005h4z"
-            stroke-width="0"
-            fill="currentColor"
-          />
-        </svg>
-      </button>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="icon icon-tabler icon-tabler-trash-filled text-white"
+            width="22"
+            height="22"
+            viewBox="0 0 24 24"
+            stroke-width="1.5"
+            stroke="currentColor"
+            fill="none"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+            <path
+              d="M20 6a1 1 0 0 1 .117 1.993l-.117 .007h-.081l-.919 11a3 3 0 0 1 -2.824 2.995l-.176 .005h-8c-1.598 0 -2.904 -1.249 -2.992 -2.75l-.005 -.167l-.923 -11.083h-.08a1 1 0 0 1 -.117 -1.993l.117 -.007h16z"
+              stroke-width="0"
+              fill="currentColor"
+            />
+            <path
+              d="M14 2a2 2 0 0 1 2 2a1 1 0 0 1 -1.993 .117l-.007 -.117h-4l-.007 .117a1 1 0 0 1 -1.993 -.117a2 2 0 0 1 1.85 -1.995l.15 -.005h4z"
+              stroke-width="0"
+              fill="currentColor"
+            />
+          </svg>
+        </button>
+      </div>
     </div>
   </div>
 
   <!-- Contenedor a la derecha del mapa -->
   <div
-    class="h-full w-2/4 bg-gray-100 border-l border-gray-300 overflow-auto md:w-1/4"
+    class="flex flex-col h-72 overflow-y-auto p-2 gap-3 bg-gray-100 border-l border-gray-300 sm:flex-row"
   >
     <div
-      class="flex flex-col p-3 m-3 gap-2 border border-t-4 border-gray-400 border-t-emerald-700 bg-white rounded overflow-wrap break-words"
+      class="flex flex-col w-full p-3 gap-2 border border-t-4 border-gray-400 border-t-emerald-700 bg-white rounded"
     >
       <div class="flex flex-col gap-2">
-        <p class="text-center text-[15px] font-bold hover:text-blue-500">
-          Información de la ruta
-        </p>
+        <p class="text-center text-[15px] font-bold">Información de la ruta</p>
 
-        <span class="flex flex-col sm:flex-row sm:flex-wrap">
+        <span class="flex flex-row flex-wrap">
           <p class="font-medium mr-1">Punto de Partida:</p>
-          <p class="font-normal">{{ pointsArray[0] | appNull }}</p></span
+          <p class="font-normal">
+            {{ pointsArray[0] | appNull }}
+          </p></span
         >
-        <span class="flex flex-col sm:flex-row sm:flex-wrap">
+        <span class="flex flex-row flex-wrap">
           <p class="font-medium mr-1">Punto de Llegada:</p>
           <p class="font-normal">{{ pointsArray[1] | appNull }}</p>
         </span>
@@ -226,82 +231,84 @@
       </div>
     </div>
 
-    <!-- RUTAS GENERADAS  -->
-    <div
-      *ngIf="showRoutesDetails"
-      class="flex flex-col p-3 m-3 border border-t-4 border-gray-400 border-t-blue-500 bg-white rounded"
-    >
-      <div class="flex flex-col gap-2">
-        <p class="text-center text-[15px] font-bold hover:text-blue-500">
-          Detalle de la Ruta
-        </p>
+    <div class="flex flex-row w-full">
+      <!-- RUTAS GENERADAS  -->
+      <div
+        *ngIf="showRoutesDetails"
+        class="flex flex-col w-full p-3 border border-t-4 border-gray-400 border-t-blue-500 bg-white rounded"
+      >
+        <div class="flex flex-col gap-2">
+          <p class="text-center text-[15px] font-bold hover:text-blue-500">
+            Detalle de la Ruta
+          </p>
 
-        <span class="flex flex-col sm:flex-row">
-          <p class="font-medium mr-1">Distancia:</p>
-          <p class="font-normal">{{ routeDistance }} km.</p>
-        </span>
-        <span class="flex flex-col sm:flex-row">
-          <p class="font-medium mr-1">Tiempo:</p>
-          <p class="font-normal">{{ routeTime }} min.</p>
-        </span>
+          <span class="flex flex-row flex-wrap">
+            <p class="font-medium mr-1">Distancia:</p>
+            <p class="font-normal">{{ routeDistance }} km.</p>
+          </span>
+          <span class="flex flex-row flex-wrap">
+            <p class="font-medium mr-1">Tiempo:</p>
+            <p class="font-normal">{{ routeTime }} min.</p>
+          </span>
+        </div>
+        <button
+          (click)="openRouteInGoogleMaps()"
+          class="flex bg-map-100 rounded-md p-2 gap-2 mt-4 border border-map-100 text-center justify-center hover:bg-emerald-800"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="icon icon-tabler icon-tabler-map-pin-2 text-white"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            stroke-width="1.5"
+            stroke="currentColor"
+            fill="none"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+            <path d="M12 18.5l-3 -1.5l-6 3v-13l6 -3l6 3l6 -3v7" />
+            <path d="M9 4v13" />
+            <path d="M15 7v5" />
+            <path
+              d="M21.121 20.121a3 3 0 1 0 -4.242 0c.418 .419 1.125 1.045 2.121 1.879c1.051 -.89 1.759 -1.516 2.121 -1.879z"
+            />
+            <path d="M19 18v.01" />
+          </svg>
+          <p class="hidden text-base text-white md:block">Google Maps</p>
+        </button>
       </div>
-      <button
-        (click)="openRouteInGoogleMaps()"
-        class="flex bg-map-100 rounded-md p-2 gap-2 mt-4 border border-map-100 text-center justify-center hover:bg-emerald-800"
-      >
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          class="icon icon-tabler icon-tabler-map-pin-2 text-white"
-          width="24"
-          height="24"
-          viewBox="0 0 24 24"
-          stroke-width="1.5"
-          stroke="currentColor"
-          fill="none"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-        >
-          <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-          <path d="M12 18.5l-3 -1.5l-6 3v-13l6 -3l6 3l6 -3v7" />
-          <path d="M9 4v13" />
-          <path d="M15 7v5" />
-          <path
-            d="M21.121 20.121a3 3 0 1 0 -4.242 0c.418 .419 1.125 1.045 2.121 1.879c1.051 -.89 1.759 -1.516 2.121 -1.879z"
-          />
-          <path d="M19 18v.01" />
-        </svg>
-        <p class="hidden text-base text-white md:block">Google Maps</p>
-      </button>
-    </div>
 
-    <div class="flex flex-col p-4 items-center justify-center">
-      <button
-        class="flex bg-sky-700 rounded-md p-2 gap-2 border border-sky-700 text-center justify-center hover:bg-sky-800"
-        (click)="exportPdf()"
-      >
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          class="icon icon-tabler icon-tabler-printer text-white"
-          width="24"
-          height="24"
-          viewBox="0 0 24 24"
-          stroke-width="1.5"
-          stroke="currentColor"
-          fill="none"
-          stroke-linecap="round"
-          stroke-linejoin="round"
+      <div class="flex flex-col w-full items-center justify-center">
+        <button
+          class="flex bg-sky-700 rounded-md p-2 gap-2 border border-sky-700 text-center justify-center hover:bg-sky-800"
+          (click)="exportPdf()"
         >
-          <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-          <path
-            d="M17 17h2a2 2 0 0 0 2 -2v-4a2 2 0 0 0 -2 -2h-14a2 2 0 0 0 -2 2v4a2 2 0 0 0 2 2h2"
-          />
-          <path d="M17 9v-4a2 2 0 0 0 -2 -2h-6a2 2 0 0 0 -2 2v4" />
-          <path
-            d="M7 13m0 2a2 2 0 0 1 2 -2h6a2 2 0 0 1 2 2v4a2 2 0 0 1 -2 2h-6a2 2 0 0 1 -2 -2z"
-          />
-        </svg>
-        <p class="hidden text-base text-white md:block">Imprimir Ruta</p>
-      </button>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="icon icon-tabler icon-tabler-printer text-white"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            stroke-width="1.5"
+            stroke="currentColor"
+            fill="none"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+            <path
+              d="M17 17h2a2 2 0 0 0 2 -2v-4a2 2 0 0 0 -2 -2h-14a2 2 0 0 0 -2 2v4a2 2 0 0 0 2 2h2"
+            />
+            <path d="M17 9v-4a2 2 0 0 0 -2 -2h-6a2 2 0 0 0 -2 2v4" />
+            <path
+              d="M7 13m0 2a2 2 0 0 1 2 -2h6a2 2 0 0 1 2 2v4a2 2 0 0 1 -2 2h-6a2 2 0 0 1 -2 -2z"
+            />
+          </svg>
+          <p class="hidden text-base text-white md:block">Imprimir Ruta</p>
+        </button>
+      </div>
     </div>
   </div>
 
